@@ -1,0 +1,23 @@
+name: Deploy ODD Vue App in Container
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build Docker image
+      run: docker build -t odd-app .
+
+    - name: Run vue.js app in container
+      run: |
+        docker ps -a -q --filter "name=odd-app" | xargs -r docker stop
+        docker ps -a -q --filter "name=odd-app" | xargs -r docker rm
+        docker run --name odd-app -p 3038:80 -d odd-app
