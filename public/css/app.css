@@ -1,0 +1,26 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+body {font-family: Lato !important;} */
+
+div.custom-loader {
+    width: 100%;
+    height: 100%;
+    background-color:rgba(36,36,36,0.5);
+    z-index: 99999;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(7px);
+}
+div.custom-loader div.spinner {width: 40px; height: 40px; position: absolute; top: 45%; background-image: url(../img/spinner.14c343237982c8bc9569853b60e6df897930016e125e4f0da2294982cf1a71b6.png); background-size: 100%; background-repeat: no-repeat; -webkit-animation-name: Spinner-styles-module-spin; animation-name: Spinner-styles-module-spin; -webkit-animation-duration: 1s; animation-duration: 1s; -webkit-animation-timing-function: linear; animation-timing-function: linear; -webkit-animation-iteration-count: infinite; animation-iteration-count: infinite;}
+
+@-webkit-keyframes Spinner-styles-module-spin {0% {-webkit-transform: rotate(0deg); transform: rotate(0deg);} to {-webkit-transform: rotate(1turn); transform: rotate(1turn);}}
+@keyframes Spinner-styles-module-spin {0% {-webkit-transform: rotate(0deg); transform: rotate(0deg);} to {-webkit-transform: rotate(1turn); transform: rotate(1turn);}}
+
+div.custom-loader .text {display: block; position: absolute; top: 52%;}
+
+.games-search {border: none;}
+.top-kombis {text-align: center; overflow-x: auto !important; overflow-y: hidden; white-space: nowrap !important; -webkit-overflow-scrolling: touch !important; -ms-overflow-style: none !important; scrollbar-width: none !important;}
+.top-kombis .match { display: inline-block !important; margin-right: 20px;}
