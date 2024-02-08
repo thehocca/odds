@@ -4,7 +4,7 @@ import $ from 'jquery';
 
 var CON;;
 // var base = 'https://api.sportsbookdemo.com';
-var base = location.hostname !== 'localhost' ? 'http://localhost:7001' : 'https://api.sportsbookdemo.com';
+var base = location.hostname === 'localhost' ? 'http://localhost:7001' : 'https://api.sportsbookdemo.com';
 const _V = {
 
     RESTSTOP: false,
