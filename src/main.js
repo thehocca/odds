@@ -32,4 +32,5 @@ import '../public/js/jquery.nice-select.min.js'
 import '../public/js/jquery-ui.min.js'
 import '../public/js/api.js'
 import '../public/js/main.js'
+import '../public/js/SoccerJersey.js'
 
