@@ -22,7 +22,7 @@ import '../public/css/main.css'
 import '../public/css/app.css'
 
 
-import '../public/js/socket.io.js'
+// import '../public/js/socket.io.js'
 // import '../public/js/wow.min.js'
 import '../public/js/jquery-3.6.0.min.js'
 import '../public/js/bootstrap.bundle.min.js'
