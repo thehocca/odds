@@ -145,12 +145,14 @@ export default {
                 if (_V.RGAMES) {
                     this.games = _V.RGAMES;
                     this.loader = false;
-
                 } else if (attempt < 10) {
                     setTimeout(() => checkGames(attempt + 1), 500);
                 } else {
                     Swal.fire('Error code: 1003');
+                    this.loader = false;
                 }
+
+                
             };
 
             await checkGames();
