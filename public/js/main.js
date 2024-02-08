@@ -24,43 +24,43 @@ $(document).ready(function () {
 	//menu header bar
 
 	//owl carousel
-	$(".match__fixing__wrap").owlCarousel({
-		loop: true,
-		margin: 9,
-		smartSpeed: 2500,
-		autoplayTimeout: 3000,
-		autoplay: false,
-		nav: false,
-		dots: false,
-		responsiveClass: true,
-		navText: [
-			'<i class="fa-solid fa-angle-left"></i>',
-			'<i class="fa-solid fa-angle-right"></i>',
-		],
-		responsive: {
-			0: {
-				items: 1,
-			},
-			600: {
-				items: 2,
-			},
-			767: {
-				items: 2,
-			},
-			991: {
-				items: 2,
-			},
-			1199: {
-				items: 2,
-			},
-			1243: {
-				items: 3,
-			},
-			1399: {
-				items: 4,
-			},
-		},
-	});
+	// $(".match__fixing__wrap").owlCarousel({
+	// 	loop: true,
+	// 	margin: 9,
+	// 	smartSpeed: 2500,
+	// 	autoplayTimeout: 3000,
+	// 	autoplay: false,
+	// 	nav: false,
+	// 	dots: false,
+	// 	responsiveClass: true,
+	// 	navText: [
+	// 		'<i class="fa-solid fa-angle-left"></i>',
+	// 		'<i class="fa-solid fa-angle-right"></i>',
+	// 	],
+	// 	responsive: {
+	// 		0: {
+	// 			items: 1,
+	// 		},
+	// 		600: {
+	// 			items: 2,
+	// 		},
+	// 		767: {
+	// 			items: 2,
+	// 		},
+	// 		991: {
+	// 			items: 2,
+	// 		},
+	// 		1199: {
+	// 			items: 2,
+	// 		},
+	// 		1243: {
+	// 			items: 3,
+	// 		},
+	// 		1399: {
+	// 			items: 4,
+	// 		},
+	// 	},
+	// });
 	//Sponsor Carousel
 	$(".footer__sponsor").owlCarousel({
 		loop: true,
