@@ -157,19 +157,19 @@ $(document).ready(function () {
 	//Date Picker
 
 	//Magnifiq pupup
-	$('.picture-btn').magnificPopup({
-		type: 'image',
-		gallery:{
-			enabled:true
-		}
-	});
+	// $('.picture-btn').magnificPopup({
+	// 	type: 'image',
+	// 	gallery:{
+	// 		enabled:true
+	// 	}
+	// });
 
-	$('.play-btn').magnificPopup({
-		type: 'iframe',
-		callbacks: {
+	// $('.play-btn').magnificPopup({
+	// 	type: 'iframe',
+	// 	callbacks: {
 			
-			}
-	});
+	// 		}
+	// });
 	//Magnifiq pupup
 
 	//Serach Popup
