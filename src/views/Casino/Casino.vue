@@ -6,6 +6,13 @@
     <div>
         <section class="main__tab__slide">
             <ul class="nav nav-tabs" id="myTabmain" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="main-tab8cas" data-bs-toggle="tab" data-bs-target="#casinot8"
+                        type="button" role="tab" aria-selected="false">
+                        <span class="icons"><i class="icon-game"></i></span>
+                        <span>Hepsi</span>
+                    </button>
+                </li>
                 <li class="nav-item" role="presentation" v-for="category in categories">
                     <button class="nav-link active" id="main-tab8cas" data-bs-toggle="tab" data-bs-target="#casinot8"
                         type="button" role="tab" aria-selected="false">
@@ -22,7 +29,7 @@
                     <div class="casino__tab__area">
                         <div class="tab-content" id="nav-tabCcasino">
 
-                            <input class="form-control bg-dark mt-3 bg-white games-search" @keyup="searchFunc($event.target.value)" placeholder="Ara..">
+                            <input class="input casino-search" @keyup="searchFunc($event.target.value)" placeholder="Ara..">
 
                             <!--all games-->
                             <div class="tab-pane mt__30 fade text-white show active" id="casinot8" role="tabpanel" aria-labelledby="casinot1" tabindex="0">

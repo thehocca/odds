@@ -2,14 +2,15 @@
 import { RouterLink, RouterView } from 'vue-router'
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
+import Loader from '@/components/Loader.vue'
 </script>
 
 <template>
    <Header v-if="sessionToken" :userInfo="userInfo" />
-   
-   <RouterView :sports="sports" :userInfo="userInfo" />
-   
+   <RouterView :sports="sports" :matches="matches" :userInfo="userInfo" />
    <Footer v-if="sessionToken" :userInfo="userInfo" />
+
+   <Loader :text="loaderText" v-if="loader" />
 </template>
 
 
@@ -26,7 +27,7 @@ export default {
             loaderText: 'Yükleniyor',
             matches: [],
             sports: [],
-            userInfo: false,
+            userInfo: {},
         }
     },
 
@@ -131,7 +132,6 @@ export default {
                         this.matches = FUNC.homeMatches(book.data);
                         this.sports = book.sports;
 
-
                         // LOADER KAPAT
                         this.loader = false;
 
@@ -139,8 +139,6 @@ export default {
                         if (this.matches.length < 1)
                             alert('No match found.');
                     });
-
-                    // alert('sdsad');
 
 
                 } else if (attempt < 10) {

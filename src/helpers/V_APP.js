@@ -1,5 +1,4 @@
-// import SoccerJersey from './libraries/Jersey.js';
-
+import SoccerJersey from './libraries/Jersey.js';
 import $ from 'jquery';
 
 var CON;;
@@ -36,14 +35,6 @@ const _V = {
                 CON = new Socket();
                 // FUNC.HOME()
 
-            } else {
-                // app.request.promise.post('http://localhost:9000/System/bellek')
-                // selectLang();
-                // app.views.main.router.navigate('/login/', {
-                //     context: {
-                //         lang: window.lang,
-                //     }
-                // });
             }
         });
     }
@@ -891,17 +882,6 @@ class BETS {
 class V_APP {
 
     constructor() { }
-
-    // async getHomeMatches (){
-    //     await this.postRequest(_V.rest.base + "/Books/timeline/", {}, (book, status) => {
-    //         return book.data
-    //     });
-    // }
-
-
-
-
-
 }
 
 class USERS {
@@ -1300,7 +1280,7 @@ class FUNCS {
 
 
     homeMatches(list) {
-
+ 
 
         const find1x2Odds = async (matchId) => {
             return _V.MATCHES[matchId].odds.filter(item =>
@@ -1319,7 +1299,7 @@ class FUNCS {
                 match.startTime = match.competition.startTime;
 
                 // FORMA OLUŞTUR
-                // match.jerseys = [this.jersey(match.competition?.competitors[0]?.jersey?.[0]), this.jersey(match.competition?.competitors[1]?.jersey?.[0])];
+                match.jerseys = [this.jersey('#f90'), this.jersey(match.competition?.competitors[1]?.jersey?.[0].base)];
 
                 // MARKETID 1 YOKSA LİSTEDEN ÇIKAR
                 match.market1 = match.markets.find(m => m.marketId == 1);
@@ -1350,39 +1330,39 @@ class FUNCS {
     }
 
 
-    // jersey(data, select = 'home', sportIds) {
-    //     var baseColor, sleeveColor, sportId, size, strip;
-    //     sportId = data?.[0]?.sportId || sportIds || '1';
+    jersey(data, select = 'home', sportIds) {
+        var baseColor, sleeveColor, sportId, size, strip;
+        sportId = data?.[0]?.sportId || sportIds || '1';
 
-    //     if(!_V.SPORTS) {
-    //         setTimeout(() => {
-    //            return this.jersey(data, select, sportId)
-    //         }, 1000);
-    //         return;
-    //     }
+        if(!_V.SPORTS) {
+            setTimeout(() => {
+               return this.jersey(data, select, sportId)
+            }, 1000);
+            return;
+        }
 
-    //     if(data && data.length > 0) {
-    //         data = select !== 'home' ? data.find(O => O.type === 'away') || data[1] : data[0];
-    //         baseColor = data?.base || (select === 'home' ? _V.SPORTS?.[sportId]?._is?.home_jersey?.[0] : _V.SPORTS?.[sportId]?._is?.away_jersey?.[0]);
-    //         sleeveColor = data?.sleeve || (select === 'home' ? _V.SPORTS?.[sportId]?._is?.home_jersey?.[1] : _V.SPORTS?.[sportId]?._is?.away_jersey?.[1]);
-    //     } else {
-    //         baseColor = select === 'home' ? _V.SPORTS?.[sportId]?._is?.home_jersey?.[0] || "#000000" : _V.SPORTS?.[sportId]?._is?.away_jersey?.[0];
-    //         sleeveColor = select === 'home' ? _V.SPORTS?.[sportId]?._is?.home_jersey?.[1] || "#ffffff" : _V.SPORTS?.[sportId]?._is?.away_jersey?.[1];
-    //     }
+        if(data && data.length > 0) {
+            data = select !== 'home' ? data.find(O => O.type === 'away') || data[1] : data[0];
+            baseColor = data?.base || (select === 'home' ? _V.SPORTS?.[sportId]?._is?.home_jersey?.[0] : _V.SPORTS?.[sportId]?._is?.away_jersey?.[0]);
+            sleeveColor = data?.sleeve || (select === 'home' ? _V.SPORTS?.[sportId]?._is?.home_jersey?.[1] : _V.SPORTS?.[sportId]?._is?.away_jersey?.[1]);
+        } else {
+            baseColor = select === 'home' ? _V.SPORTS?.[sportId]?._is?.home_jersey?.[0] || "#000000" : _V.SPORTS?.[sportId]?._is?.away_jersey?.[0];
+            sleeveColor = select === 'home' ? _V.SPORTS?.[sportId]?._is?.home_jersey?.[1] || "#ffffff" : _V.SPORTS?.[sportId]?._is?.away_jersey?.[1];
+        }
 
-    //     size = data?.size || 16;
-    //     strip = data?.tshirt || _V.SPORTS?.[sportId]?._is?.tshirt;
+        size = data?.size || 16;
+        strip = data?.tshirt || _V.SPORTS?.[sportId]?._is?.tshirt;
 
-    //     return '<img width="'+size+'" src="' + SoccerJersey.draw({
-    //         "shirtText": "",
-    //         "shirtColor": baseColor,
-    //         "sleeveColor": sleeveColor,
-    //         "shirtStyle": strip || "striped",
-    //         "shirtStyleColor": sleeveColor,
-    //         "shirtStyleDirection": strip === "two-color" ? "diagonal-left" : undefined,
-    //         "textColor": "#fff"
-    //     }) + '" /> ';
-    // }
+        return '<img width="'+size+'" src="' + SoccerJersey.draw({
+            "shirtText": "",
+            "shirtColor": baseColor,
+            "sleeveColor": sleeveColor,
+            "shirtStyle": strip || "striped",
+            "shirtStyleColor": sleeveColor,
+            "shirtStyleDirection": strip === "two-color" ? "diagonal-left" : undefined,
+            "textColor": "#fff"
+        }) + '" /> ';
+    }
 
     BookmakerTime(dateString) {
         const date = new Date(dateString);

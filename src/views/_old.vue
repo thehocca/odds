@@ -688,7 +688,7 @@ import Betslip from '../components/Betslip.vue';
                                                                                     <div class="cart__point">
 
                                                                                     </div>
-                                                                                    <div class="mart__point__items d-none d-lg-flex">
+                                                                                    <div class="mart__point__items">
                                                                                         <a href="#0"
                                                                                             class="twing opo twing__right">
                                                                                             <i class="icon-twer"></i>
@@ -742,12 +742,11 @@ import Betslip from '../components/Betslip.vue';
                                                                                             <h6>
                                                                                                 <img v-bind:src="i.jerseys?.[0]"  class="uniform">
                                                                                                 {{ i.competition.competitors[0].name }}
-
-                                                                                                <div class="py-1 d-none d-lg-block"></div>    
-
+                                                                                            </h6>
+                                                                                            <span class="text">                                                                                                <img v-bind:src="i.jerseys?.[0]"  class="uniform">
                                                                                                 <img v-bind:src="i.jerseys?.[1]"  class="uniform">
                                                                                                 {{ i.competition.competitors[1].name }}
-                                                                                            </h6>
+                                                                                            </span>
                                                                                             <p>
                                                                                                 <a href="#0">
                                                                                                     <!-- Live -->
@@ -767,6 +766,13 @@ import Betslip from '../components/Betslip.vue';
                                                                                         </span>
                                                                                     </div>
                                                                                     <div class="mart__point__items">
+                                                                                        <a href="#0"
+                                                                                            class="twing twing__right">
+                                                                                            <i class="icon-twer"></i>
+                                                                                        </a>
+                                                                                        <a href="#0" class="mart">
+                                                                                            <i class="icon-pmart"></i>
+                                                                                        </a>
                                                                                         <a href="#0box" class="point__box">
                                                                                             {{ i.market1.outcomes[0].odds.toFixed(2) }}
                                                                                         </a>

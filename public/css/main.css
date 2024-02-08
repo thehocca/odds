@@ -2119,7 +2119,7 @@ p {
   margin-top: 5px;
 }
 .common__head span {
-  color: var(--active-color);
+  color: var(--social-box);
   font-size: 24px;
   font-weight: 600;
 }
@@ -4612,6 +4612,7 @@ p {
   .main__body__wrap .live__heightlight .heightlight__tab {
     overflow-x: scroll;
     padding-bottom: 2px;
+    /* background-color: #f00; */
   }
   .main__body__wrap .live__heightlight .heightlight__tab .nav {
     width: 1100px;
@@ -4627,6 +4628,7 @@ p {
   }
   .main__body__wrap .live__heightlight .tab-pane {
     overflow-x: scroll;
+    /* background-color: #f90; */
   }
   .main__body__wrap .live__heightlight .tab-pane::-webkit-scrollbar {
     width: 10px;
@@ -4638,10 +4640,11 @@ p {
     border-radius: 10px;
   }
   .main__body__wrap .live__heightlight .main__table {
-    width: 1000px;
+    /* width: 1000px; */
   }
   .live__heightlight {
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
+
   }
   .live__heightlight::-webkit-scrollbar {
     width: 10px;

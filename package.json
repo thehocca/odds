@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "jquery": "^3.7.1",
+    "soccer-jersey": "^1.0.14",
     "sweetalert2": "^11.10.5",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
