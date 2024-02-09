@@ -31,3 +31,5 @@ div.custom-loader .text {display: block; position: absolute; top: 52%;}
     .main__table .table__wrap .table__items {  flex-direction: column; padding: 10px 0px; display: block;
     }
 }
+
+.point__box.active {background-color: var(--theme-one) !important; color: var(--body-color) !important;}

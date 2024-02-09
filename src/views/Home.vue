@@ -548,7 +548,7 @@ import Betslip from '../components/Betslip.vue';
                                                         <div class="live__heightlight mb__30">
                                                             <div class="section__title">
                                                                 <h4>
-                                                                    Live Highlights
+                                                                    Canlı Maçlar
                                                                 </h4>
                                                             </div>
                                                             <div class="heightlight__tab">
@@ -696,15 +696,15 @@ import Betslip from '../components/Betslip.vue';
                                                                                         <a href="#0" class="mart opo">
                                                                                             <i class="icon-pmart"></i>
                                                                                         </a>
-                                                                                        <a href="#0box"
+                                                                                        <a href="javascript:;"
                                                                                             class="point__box bg__none">
                                                                                             1
                                                                                         </a>
-                                                                                        <a href="#0box"
+                                                                                        <a href="javascript:;"
                                                                                             class="point__box bg__none">
                                                                                             X
                                                                                         </a>
-                                                                                        <a href="#0box"
+                                                                                        <a href="javascript:;"
                                                                                             class="point__box bg__none">
                                                                                             2
                                                                                         </a>
@@ -736,46 +736,79 @@ import Betslip from '../components/Betslip.vue';
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="table__items b__bottom" v-for="i in matches">
-                                                                                    <div class="t__items">
-                                                                                        <div class="t__items__left">
-                                                                                            <h6>
-                                                                                                <img v-bind:src="i.jerseys?.[0]"  class="uniform">
-                                                                                                {{ i.competition.competitors[0].name }}
+                                                                                <div class="table__items b__bottom py-2" v-for="i in matches">
+                                                                                    <div class="t__items mb-2" style=" min-width: 350px;">
+                                                                                        <div class="t__items__left w-100">
+                                                                                            <div class="row">
+                                                                                                <div class="col-2">
+                                                                                                    <div>
+                                                                                                        <small>
+                                                                                                            {{ i.date.date }}
+                                                                                                        </small>
+                                                                                                    </div>
+                                                                                                    <div>
+                                                                                                        <small>
+                                                                                                            {{ i.date.hour }}
+                                                                                                        </small>
+                                                                                                    </div>
+                                                                                                </div>  
+                                                                                                <div class="col-8 col-lg-6 p-0">
+                                                                                                    <span style="width: 95%; overflow: hidden; display: inline-block; text-overflow: ellipsis; white-space: nowrap;">
+                                                                                                        <img v-bind:src="i.jerseys?.[0]" class="d-inline" style="width: 16px">
+                                                                                                        {{ i.competition.competitors[0].name }}
 
-                                                                                                <div class="py-1 d-none d-lg-block"></div>    
+                                                                                                        <div class="py-1"></div>    
 
-                                                                                                <img v-bind:src="i.jerseys?.[1]"  class="uniform">
-                                                                                                {{ i.competition.competitors[1].name }}
-                                                                                            </h6>
-                                                                                            <p>
-                                                                                                <a href="#0">
-                                                                                                    <!-- Live -->
-                                                                                                </a>
-                                                                                                <span>
-                                                                                                    {{ i.date.date + ' ' + i.date.hour }}
-                                                                                                </span>
-                                                                                            </p>
+                                                                                                        <img v-bind:src="i.jerseys?.[1]" class="d-inline" style="width: 16px">
+                                                                                                        {{ i.competition.competitors[1].name }}
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                                <div class="col-2 d-flex flex-column">
+                                                                                                    <h6 class="mt-1">
+                                                                                                        0
+                                                                                                    </h6>
+                                                                                                    <h6 class="mt-2">
+                                                                                                        0
+                                                                                                    </h6>
+                                                                                                </div>
+                                                                                                <div class="col-2 text-center d-none d-lg-flex align-items-center justify-content-center p-0">
+                                                                                                    <a href="" style="margin-left: 10px">
+                                                                                                        <i class="icon-pmart"></i>  
+                                                                                                    </a>  
+                                                                                                    <a href="" style="margin: 0px 10px 0px 10px">
+                                                                                                        <i class="icon-twer"></i> <small>{{ i.markets.length }}</small>
+                                                                                                    </a>    
+                                                                                                </div>
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="cart__point d-none d-lg-flex">
-                                                                                        <span>
+                                                                                    <div class="cart__point d-none flex-column">
+                                                                                        <small>
                                                                                             0
-                                                                                        </span>
-                                                                                        <span>
+                                                                                        </small>
+                                                                                        <small>
                                                                                             0
-                                                                                        </span>
+                                                                                        </small>
                                                                                     </div>
                                                                                     <div class="mart__point__items">
-                                                                                        <a href="#0box" class="point__box">
+                                                                                        <a href="javascript:;" class="point__box active">
                                                                                             {{ i.market1.outcomes[0].odds.toFixed(2) }}
                                                                                         </a>
-                                                                                        <a href="#0box" class="point__box">
+                                                                                        <a href="javascript:;" class="point__box">
                                                                                             {{ i.market1.outcomes[1].odds.toFixed(2) }}
                                                                                         </a>
-                                                                                        <a href="#0box" class="point__box">
+                                                                                        <a href="javascript:;" class="point__box">
                                                                                             {{ i.market1.outcomes[2].odds.toFixed(2) }}
                                                                                         </a>
+                                                                                        
+                                                                                        <div class="d-block d-lg-none">
+                                                                                            <a href="" style="margin-left: 10px">
+                                                                                                <i class="icon-pmart"></i>  
+                                                                                            </a>  
+                                                                                            <a href="" style="margin: 0px 10px 0px 10px">
+                                                                                                <i class="icon-twer"></i> <small>123</small>
+                                                                                            </a> 
+                                                                                        </div>
                                                                                     </div>
                                                                                     <div
                                                                                         class="cart__point cart__point__two d-none d-lg-flex">
@@ -808,10 +841,10 @@ import Betslip from '../components/Betslip.vue';
                                                                       
                                                                                 <div class="table__footer">
                                                                                     <a href="#0" class="lobby">
-                                                                                        Open Football lobby
+                                                                                        Tüm Maçlar
                                                                                     </a>
                                                                                     <a href="#0" class="footerpoing">
-                                                                                        <span>322</span>
+                                                                                        <span>{{ matches.length }}</span>
                                                                                         <span><i
                                                                                                 class="fas fa-angle-right"></i></span>
                                                                                     </a>

@@ -3,11 +3,12 @@ import $ from 'jquery';
 
 var CON;;
 // var base = 'https://api.sportsbookdemo.com';
-var base = location.hostname === 'localhost' ? 'http://localhost:7001' : 'https://api.sportsbookdemo.com';
+var base = location.hostname !== 'localhost' ? 'http://localhost:7001' : 'https://api.sportsbookdemo.com';
 const _V = {
 
     RESTSTOP: false,
     lang: 'en',
+    SPORTS: false, 
     rest: {
         home: 'https://client.sportsbookdemo.com/index.html',
         socket: window.location.origin + "/",
@@ -1279,7 +1280,7 @@ class FUNCS {
     }
 
 
-    homeMatches(list) {
+    homeMatches(list, sports) {
  
 
         const find1x2Odds = async (matchId) => {
@@ -1289,6 +1290,7 @@ class FUNCS {
         }
 
         _V.MATCHES = list;
+        _V.SPORTS = sports;
 
         // return list;
         return Object.values(_V.MATCHES).filter(async match => {
@@ -1299,7 +1301,7 @@ class FUNCS {
                 match.startTime = match.competition.startTime;
 
                 // FORMA OLUŞTUR
-                match.jerseys = [this.jersey('#f90'), this.jersey(match.competition?.competitors[1]?.jersey?.[0].base)];
+                match.jerseys = [(this.jersey('#f90')), (this.jersey(match.competition?.competitors[1]?.jersey?.[0].base,"away"))];
 
                 // MARKETID 1 YOKSA LİSTEDEN ÇIKAR
                 match.market1 = match.markets.find(m => m.marketId == 1);
@@ -1330,38 +1332,15 @@ class FUNCS {
     }
 
 
-    jersey(data, select = 'home', sportIds) {
-        var baseColor, sleeveColor, sportId, size, strip;
-        sportId = data?.[0]?.sportId || sportIds || '1';
-
-        if(!_V.SPORTS) {
-            setTimeout(() => {
-               return this.jersey(data, select, sportId)
-            }, 1000);
-            return;
-        }
-
-        if(data && data.length > 0) {
-            data = select !== 'home' ? data.find(O => O.type === 'away') || data[1] : data[0];
-            baseColor = data?.base || (select === 'home' ? _V.SPORTS?.[sportId]?._is?.home_jersey?.[0] : _V.SPORTS?.[sportId]?._is?.away_jersey?.[0]);
-            sleeveColor = data?.sleeve || (select === 'home' ? _V.SPORTS?.[sportId]?._is?.home_jersey?.[1] : _V.SPORTS?.[sportId]?._is?.away_jersey?.[1]);
-        } else {
-            baseColor = select === 'home' ? _V.SPORTS?.[sportId]?._is?.home_jersey?.[0] || "#000000" : _V.SPORTS?.[sportId]?._is?.away_jersey?.[0];
-            sleeveColor = select === 'home' ? _V.SPORTS?.[sportId]?._is?.home_jersey?.[1] || "#ffffff" : _V.SPORTS?.[sportId]?._is?.away_jersey?.[1];
-        }
-
-        size = data?.size || 16;
-        strip = data?.tshirt || _V.SPORTS?.[sportId]?._is?.tshirt;
-
-        return '<img width="'+size+'" src="' + SoccerJersey.draw({
-            "shirtText": "",
-            "shirtColor": baseColor,
-            "sleeveColor": sleeveColor,
-            "shirtStyle": strip || "striped",
-            "shirtStyleColor": sleeveColor,
-            "shirtStyleDirection": strip === "two-color" ? "diagonal-left" : undefined,
-            "textColor": "#fff"
-        }) + '" /> ';
+    jersey(data, select = 'home', sportIds = 1) {
+        return SoccerJersey.draw({  
+            shirtText: "",
+            shirtColor: data,
+            sleeveColor: "#fff",
+            shirtStyle: "plain",
+            shirtStyleColor: "#dc0001",
+            textColor: "#fff",
+          })
     }
 
     BookmakerTime(dateString) {

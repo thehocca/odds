@@ -129,8 +129,10 @@ export default {
                     // İSTEK AT
                     await FUNC.postRequest(_V.rest.base + "/Books/timeline/", {}, (book, status) => {
 
-                        this.matches = FUNC.homeMatches(book.data);
+                        this.matches = FUNC.homeMatches(book.data, this.sports);
                         this.sports = book.sports;
+
+                        console.log(this.matches);
 
                         // LOADER KAPAT
                         this.loader = false;
