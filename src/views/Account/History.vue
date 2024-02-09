@@ -141,8 +141,6 @@
 
 <script>
     export default {
-        props: {
-            userInfo: Object
-        },
+        props: ['userInfo'],
     }
 </script>

@@ -3,7 +3,7 @@ import $ from 'jquery';
 
 var CON;;
 // var base = 'https://api.sportsbookdemo.com';
-var base = location.hostname === 'localhost' ? 'http://localhost:7001' : 'https://api.sportsbookdemo.com';
+var base = location.hostname !== 'localhost' ? 'http://localhost:7001' : 'https://api.sportsbookdemo.com';
 const _V = {
 
     RESTSTOP: false,
@@ -1312,6 +1312,35 @@ class FUNCS {
             return false; // Koşulu sağlamayan maçları filtrele
         });
     }
+
+    ticketMutation (list){
+        
+        for (const key in list) {
+
+            const date = new Date(list[key].dates.create);
+
+            list[key].dates.create1 = date.toLocaleDateString("tr-TR", {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+            });
+
+            list[key].dates.create2 = date.toLocaleDateString("tr-TR", {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric",
+            }); 
+
+        }
+
+        return list;
+
+          
+    }
+
     async CONNECTED(retry = 0) {
         retry++;
         if (_V.USER) {
@@ -1330,7 +1359,6 @@ class FUNCS {
             }, (100 * retry))
         }
     }
-
 
     jersey(data, select = 'home', sportIds = 1) {
         return SoccerJersey.draw({  

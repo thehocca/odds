@@ -103,6 +103,36 @@
                             </ul>
                         </div>
                         <div class="casinoform__tabe">
+                            <div class="p-3 text-white b__bottom" style="background-color: #212121; border-bottom: solid 1px #191919" v-for="i in tickets">
+                                <div class="row">
+                                    <div class="col-12 col-lg-2">
+                                        <span v-if="i.results.status === 'pending'" class="text-warning"><b> BEKLİYOR </b></span>
+                                        <span v-else-if="i.results.status === 'won'" class="text-success"><b> KAZANDI </b></span>
+                                        <span v-else-if="i.results.status === 'sold'" class="text-danger"><b> KAYBETTİ </b></span>
+                                    </div>
+                                    <div class="col-5 col-lg-3">
+                                        {{ i.dates.create2 }}
+                                    </div>
+                                    <div class="col-3 col-lg-2 text-center">
+                                        {{ i.totalStake + ' ' + i.currency }}
+                                    </div>
+                                    <div class="col-3 col-lg-2 text-center">
+                                        {{ i.ticketPossibleWin + ' ' + i.currency }}
+                                    </div>
+                                    <div class="col-6 col-lg-2 pt-3 pt-lg-0">
+                                        <RouterLink to="/" class="btn btn-sm btn-warning w-100 py-2">
+                                            CASHOUT <b>3 {{ userInfo?.finance?.currency }}</b>
+                                        </RouterLink>
+                                    </div>
+                                    <div class="col-6 col-lg-1 pt-3 pt-lg-0">
+                                        <RouterLink :to="'/account/tickets/'+i.cid" class="btn btn-sm btn-primary w-100 py-2">
+                                            İNCELE
+                                        </RouterLink>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <table>
                                 <thead>
                                     <tr>
@@ -138,6 +168,7 @@
 </template>
 
 <script>
+import { FUNC } from '@/helpers/V_APP';
 import {_V} from '/src/helpers/V_APP.js'
 
 export default {
@@ -169,7 +200,11 @@ export default {
                         this.filter = 'pending';
 
                     // TICKETLERI FİLTRELE
-                    this.tickets  = _V.TICKETS.filter(elem => elem.results.status == this.filter);
+                    const filteredTickets = await _V.TICKETS.filter(elem => elem.results.status == this.filter);
+
+                    if (filteredTickets.length > 0) {
+                        this.tickets = FUNC.ticketMutation(this.tickets);
+                    }
 
                     // LOADER KAPAT
                     this.loader = false;

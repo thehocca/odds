@@ -315,8 +315,8 @@ import LeftBar from '../components/LeftBar.vue';
                                                                                                         </small>
                                                                                                     </div>
                                                                                                 </div>  
-                                                                                                <div class="col-8 col-lg-6 p-0">
-                                                                                                    <span style="width: 95%; overflow: hidden; display: inline-block; text-overflow: ellipsis; white-space: nowrap;">
+                                                                                                <div class="col-8 col-lg-6 p-0 text-truncate">
+                                                                                                    <span>
                                                                                                         <img v-bind:src="i.jerseys?.[0]" class="d-inline" style="width: 16px">
                                                                                                         {{ i.competition.competitors[0].name }}
 
@@ -813,8 +813,8 @@ export default {
             this.$router.push('/sign-in');
     },
     props: {
-        matches: Object,
-        sports: Object
+        matches: null,
+        sports: null
     },
     computed: {
         sportsFilter() {

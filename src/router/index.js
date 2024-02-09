@@ -8,6 +8,7 @@ import Account from '../views/Account/Account.vue'
 import Password from '../views/Account/Password.vue'
 import History from '../views/Account/History.vue'
 import Tickets from '../views/Account/Tickets.vue'
+import TicketsDetail from '../views/Account/TicketsDetail.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,7 +57,12 @@ const router = createRouter({
             path: '/account/tickets',
             name: 'tickets',
             component: Tickets
-        },     
+        },   
+        {
+            path: '/account/tickets/:id',
+            name: 'tickets-id',
+            component: TicketsDetail
+        },    
         
     ]
 })

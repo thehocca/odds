@@ -134,8 +134,6 @@ export default {
                         this.matches = FUNC.homeMatches(book.data, this.sports);
                         this.sports = book.sports;
 
-                        console.log(this.matches);
-
                         // LOADER KAPAT
                         this.loader = false;
 
