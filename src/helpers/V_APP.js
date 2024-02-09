@@ -1,5 +1,6 @@
-import SoccerJersey from '/js/SoccerJersey.js';
+// import SoccerJersey from './libraries/SoccerJersey.js';
 import $ from 'jquery';
+import SoccerJersey from 'soccer-jersey';
 
 var CON;;
 // var base = 'https://api.sportsbookdemo.com';
