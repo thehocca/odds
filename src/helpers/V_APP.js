@@ -1455,7 +1455,7 @@ class Socket {
     constructor() {
         const token = true
         if (this.isConnected) return;
-        this.#socket = io.connect(location.hostname !== 'localhost' ? 'ws://localhost' : "wss://client.sportsbookdemo.com", {
+        this.#socket = io.connect(location.hostname === 'localhost' ? 'ws://localhost' : "wss://client.sportsbookdemo.com", {
             reconnection: false,
             pingInterval: 25000,
             pingTimeout: 60000,
