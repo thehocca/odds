@@ -7,6 +7,16 @@
                     <div class="dashboard__side__bar">
                         <ul class="account__menu">
                             <li>
+                                <RouterLink to="/account/tickets">
+                                    <span class="icons">
+                                        <i class="icon-details"></i>
+                                    </span>
+                                    <span>
+                                        Kuponlarım
+                                    </span>
+                                </RouterLink>
+                            </li>
+                            <li>
                                 <RouterLink to="/account">
                                     <span class="icons">
                                         <i class="icon-details"></i>

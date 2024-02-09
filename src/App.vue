@@ -2,6 +2,7 @@
 import { RouterLink, RouterView } from 'vue-router'
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
+import BottomBar from '@/components/BottomBar.vue'
 import Loader from '@/components/Loader.vue'
 </script>
 
@@ -9,6 +10,7 @@ import Loader from '@/components/Loader.vue'
    <Header v-if="sessionToken" :userInfo="userInfo" />
    <RouterView :sports="sports" :matches="matches" :userInfo="userInfo" />
    <Footer v-if="sessionToken" :userInfo="userInfo" />
+   <BottomBar v-if="sessionToken" :userInfo="userInfo" />
 
    <Loader :text="loaderText" v-if="loader" />
 </template>

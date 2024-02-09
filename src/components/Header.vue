@@ -25,16 +25,17 @@
                             </RouterLink>
                         </li>
                         <li class="cmn-grp">
-                            <span class="cmn--btn">
+                            <span class="cmn--btn text-dark">
                                 <span class="rela">Deposit</span>
                             </span>
                         </li>
                     </ul>
                 </div>
+
                 <div class="dashboar__wrap">
                     <div class="items d__text" v-if="sessionToken">
                         <span class="small">Bakiye</span>
-                        <h6>{{ userInfo?.finance?.balance != null ? userInfo?.finance?.balance : 0 }}</h6>
+                        <h6>{{ userInfo?.finance?.balance != null ? userInfo?.finance?.balance : 0 }} {{ userInfo?.finance?.currency }}</h6>
                     </div>
                     <div class="items d__cmn" v-if="sessionToken">
                         <RouterLink to="/account/tickets" class="cmn--btn text-dark">
@@ -42,6 +43,11 @@
                         </RouterLink>
                     </div>
                     <div class="items dashboar__social" v-if="sessionToken">
+                        <div class="d-lg-none" style="margin-right: 8px">
+                            <span class="text-white">
+                                <b>{{ userInfo?.finance?.balance != null ? userInfo?.finance?.balance : 0 }}</b> {{ userInfo?.finance?.currency }}
+                            </span>
+                        </div>
                         <div class="custom-dropdown">
                             <div class="custom-dropdown__user" data-set="custom-dropdown">
                                 <a href="javascript:;" class="icons">
@@ -135,7 +141,6 @@ export default {
     },
     created() {
         this.sessionToken = SESSION.sessionController('token');
-
         // console.log('----');
         // alert(userInfo);
         // this.balance = userInfo.finance.balance
