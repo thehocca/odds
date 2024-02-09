@@ -1,4 +1,4 @@
-import SoccerJersey from './libraries/SoccerJersey.js';
+import SoccerJersey from '/js/SoccerJersey.js';
 import $ from 'jquery';
 
 var CON;;
