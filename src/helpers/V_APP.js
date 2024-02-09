@@ -4,7 +4,8 @@ import SoccerJersey from 'soccer-jersey';
 
 var CON;;
 // var base = 'https://api.sportsbookdemo.com';
-var base = location.hostname === 'localhost' ? 'http://localhost:7001' : 'https://api.sportsbookdemo.com';
+var base = 'https://api.sportsbookdemo.com';
+var socket_base = "wss://client.sportsbookdemo.com"
 const _V = {
 
     RESTSTOP: false,
@@ -1455,7 +1456,7 @@ class Socket {
     constructor() {
         const token = true
         if (this.isConnected) return;
-        this.#socket = io.connect(location.hostname === 'localhost' ? 'ws://localhost' : "wss://client.sportsbookdemo.com", {
+        this.#socket = io.connect(socket_base, {
             reconnection: false,
             pingInterval: 25000,
             pingTimeout: 60000,

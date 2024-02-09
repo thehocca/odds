@@ -202,8 +202,10 @@ export default {
                     // TICKETLERI FİLTRELE
                     const filteredTickets = await _V.TICKETS.filter(elem => elem.results.status == this.filter);
 
+                    console.log(filteredTickets);
+
                     if (filteredTickets.length > 0) {
-                        this.tickets = FUNC.ticketMutation(this.tickets);
+                        this.tickets = FUNC.ticketMutation(filteredTickets);
                     }
 
                     // LOADER KAPAT
