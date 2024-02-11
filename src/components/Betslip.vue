@@ -54,7 +54,11 @@
                             </div>
                             <div class="possible__pay">
                                 <h6>Maks. Kazanç:</h6>
-                                <h5 class="text-success ticket-possible-win">0</h5>
+                                <h5 class="ticket-possible-win">
+                                    <span class="text-success amount" style="font-size: 14px; margin-right: 5px; color: #FFFFFF;">0</span>    
+                                    <span>{{ userInfo?.finance.currency }}</span>
+                                </h5>
+
                             </div>
                             <a href="javascript:;" class="cmn--btn2 text-dark save-coupon">
                                 <span>KUPON OLUŞTUR</span>

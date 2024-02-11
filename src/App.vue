@@ -30,7 +30,7 @@ export default {
             loaderText: 'Yükleniyor',
             matches: [],
             sports: [],
-            userInfo: {},
+            userInfo: null,
             CON: new Socket(),
         }
     },
@@ -43,11 +43,11 @@ export default {
         if (SESSION.sessionController('token') === false) {
             this.$router.push('/sign-in');
         } else {
-            // const CON = new Socket();
+            const CON = new Socket();
             await this.USER_CONTROLLER();
         }
 
-        $(document).on('click', 'a.odd', function () {
+        $(document).on('click', 'a.odd', () => {
             $(this).stop().toggleClass('active');
 
             var odd = $(this).attr('data-odd');
@@ -56,7 +56,6 @@ export default {
             var matchid = $(this).attr('data-matchid');
             var marketname = $(this).attr('data-marketname');
             
-            // alert(odd);
             // MAÇ EKLE
             BET.addMatch(matchid, odd, matchid, outcomeid, marketname);
 
@@ -67,8 +66,7 @@ export default {
                 // $('div.right-bar-betslip h3.current-coupon').html(BET.ActiveCoupon.length);
                 // $('div.right-bar-betslip div.header a.select').html(BET.currentSelections);
                 $('span.ticket-amount').html(calculateTicketSummary.ticketAmount);
-                $('h5.ticket-possible-win').html(calculateTicketSummary.ticketPossibleWin.toFixed(2));
-                // $('div.right-bar-betslip div.content ul.list li.match').remove();
+                $('h5.ticket-possible-win span.amount').html(calculateTicketSummary.ticketPossibleWin.toFixed(2));
 
                 // MOBİL
                 $('div.betslip-content div.multiple__items').remove();
@@ -127,32 +125,32 @@ export default {
                 $('a.odd').removeClass('active');
                 return false;
             });
+
+            // KUPON OLUŞTUR
+            $(document).on('click', 'a.save-coupon', async () => {
+                
+                await this.CON.PlaceBet();  
+
+                $('body').append('<div class="custom-loader"><h1 style="font-size: 90px" class="text-white"></h1></div>');
+
+                let counter = 6;
+                const interval = setInterval(() => {
+                    if (counter <= 0) {
+                        clearInterval(interval);
+                        $('.custom-loader').hide();
+                        return;
+                    }
+                    counter--;
+                    $('.custom-loader h1').html(counter);
+                }, 1000);                
+            });
+
+
         });
 
-        // KUPON OLUŞTUR
-        $(document).on('click', 'a.save-coupon', async () => {
-            
-            // console.log(this.CON);
+        
 
-            await this.CON.PlaceBet();  
 
-            $('body').append('<div class="custom-loader"><h1 style="font-size: 60px" class="text-white"></h1></div>');
-
-            let counter = 6;
-
-            const interval = setInterval(() => {
-                if (counter <= 0) {
-                    clearInterval(interval);
-                    $('.custom-loader').hide();
-                    return;
-                }
-                counter--;
-                $('.custom-loader h1').html(counter);
-            }, 1000);
-
-           
-            
-        });
 
 
         $(document).on('click', '.main-menu a', function () {
@@ -189,10 +187,12 @@ export default {
                         this.matches = FUNC.homeMatches(book.data, this.sports);
                         this.sports = book.sports;
 
+                        console.log(this.matches);
+
                         // LOADER KAPAT
                         this.loader = false;
 
-                        // HİÇ MAÇ YOK İSE
+                        // // HİÇ MAÇ YOK İSE
                         if (this.matches.length < 1)
                             alert('No match found.');
                     });

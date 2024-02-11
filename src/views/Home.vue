@@ -309,23 +309,23 @@ import LeftBar from '../components/LeftBar.vue';
                                                                                                 <div class="col-2">
                                                                                                     <div>
                                                                                                         <small>
-                                                                                                            {{ i.date.date }}
+                                                                                                            <!-- {{ i.date.date }} -->
                                                                                                         </small>
                                                                                                     </div>
                                                                                                     <div>
                                                                                                         <small>
-                                                                                                            {{ i.date.hour }}
+                                                                                                            <!-- {{ i.date.hour }} -->
                                                                                                         </small>
                                                                                                     </div>
                                                                                                 </div>  
                                                                                                 <div class="col-8 col-lg-6 p-0 text-truncate">
                                                                                                     <span>
-                                                                                                        <img v-bind:src="i.jerseys?.[0]" class="d-inline" style="width: 16px">
+                                                                                                        <!-- <img v-bind:src="i.jerseys?.[0]" class="d-inline" style="width: 16px"> -->
                                                                                                         {{ i.competition.competitors[0].name }}
 
                                                                                                         <div class="py-1"></div>    
 
-                                                                                                        <img v-bind:src="i.jerseys?.[1]" class="d-inline" style="width: 16px">
+                                                                                                        <!-- <img v-bind:src="i.jerseys?.[1]" class="d-inline" style="width: 16px"> -->
                                                                                                         {{ i.competition.competitors[1].name }}
                                                                                                     </span>
                                                                                                 </div>
@@ -358,33 +358,33 @@ import LeftBar from '../components/LeftBar.vue';
                                                                                     </div>
                                                                                     <div class="mart__point__items">
                                                                                         <a href="javascript:;" class="point__box odd"
-                                                                                            :data-odd="i.market1.outcomes[0].odds.toFixed(2)"
-                                                                                            :data-oddmarketid="i.market1.marketId"
-                                                                                            :data-outcomeid="i.market1.outcomes[0].outComeId"
-                                                                                            :data-matchid="i.competition.matchId"
-                                                                                            :data-marketname="i.market1.marketName">
-                                                                                            <span class="ml-3" :data-matchid="i.competition.matchId">
-                                                                                            {{ i.market1.outcomes[0].odds.toFixed(2) }}
+                                                                                            :data-odd="i?.market1?.outcomes[0].odds.toFixed(2)"
+                                                                                            :data-oddmarketid="i?.market1?.marketId"
+                                                                                            :data-outcomeid="i?.market1?.outcomes[0]?.outcomeId"
+                                                                                            :data-matchid="i?.competition?.matchId"
+                                                                                            :data-marketname="i?.market1?.marketName">
+                                                                                            <span class="ml-3" :data-matchid="i?.competition?.matchId">
+                                                                                            {{ i?.market1?.outcomes[0].odds.toFixed(2) }}
                                                                                             </span>
                                                                                         </a>
                                                                                         <a href="javascript:;" class="point__box odd"
-                                                                                            :data-odd="i.market1.outcomes[1].odds.toFixed(2)"
-                                                                                            :data-oddmarketid="i.market1.marketId"
-                                                                                            :data-outcomeid="i.market1.outcomes[1].outComeId"
-                                                                                            :data-matchid="i.competition.matchId"
-                                                                                            :data-marketname="i.market1.marketName">
-                                                                                            <span class="ml-3" :data-matchid="i.competition.matchId">
-                                                                                                {{ i.market1.outcomes[1].odds.toFixed(2) }}
+                                                                                            :data-odd="i?.market1?.outcomes[1].odds.toFixed(2)"
+                                                                                            :data-oddmarketid="i?.market1?.marketId"
+                                                                                            :data-outcomeid="i?.market1?.outcomes[1]?.outcomeId"
+                                                                                            :data-matchid="i?.competition?.matchId"
+                                                                                            :data-marketname="i?.market1?.marketName">
+                                                                                            <span class="ml-3" :data-matchid="i?.competition?.matchId">
+                                                                                                {{ i?.market1?.outcomes[1].odds.toFixed(2) }}
                                                                                             </span>
                                                                                         </a>
                                                                                         <a href="javascript:;" class="point__box odd"
-                                                                                            :data-odd="i.market1.outcomes[2].odds.toFixed(2)"
-                                                                                            :data-oddmarketid="i.market1.marketId"
-                                                                                            :data-outcomeid="i.market1.outcomes[2].outComeId"
-                                                                                            :data-matchid="i.competition.matchId"
-                                                                                            :data-marketname="i.market1.marketName">
-                                                                                             <span class="ml-3" :data-matchid="i.competition.matchId">
-                                                                                                {{ i.market1.outcomes[2].odds.toFixed(2) }}
+                                                                                            :data-odd="i?.market1?.outcomes[2].odds.toFixed(2)"
+                                                                                            :data-oddmarketid="i?.market1?.marketId"
+                                                                                            :data-outcomeid="i?.market1?.outcomes[2]?.outcomeId"
+                                                                                            :data-matchid="i?.competition?.matchId"
+                                                                                            :data-marketname="i?.market1?.marketName">
+                                                                                             <span class="ml-3" :data-matchid="i?.competition?.matchId">
+                                                                                                {{ i?.market1?.outcomes[2].odds.toFixed(2) }}
                                                                                             </span>
                                                                                         </a>
                                                                                         

@@ -1303,7 +1303,7 @@ class FUNCS {
                 match.startTime = match.competition.startTime;
 
                 // FORMA OLUŞTUR
-                match.jerseys = [(this.jersey('#f90')), (this.jersey(match.competition?.competitors[1]?.jersey?.[0].base,"away"))];
+                // match.jerseys = [(this.jersey(match.competition?.competitors[0]?.jersey?.[0].base)), (this.jersey(match.competition?.competitors[1]?.jersey?.[0].base,"away"))];
 
                 // MARKETID 1 YOKSA LİSTEDEN ÇIKAR
                 match.market1 = match.markets.find(m => m.marketId == 1);
@@ -1513,7 +1513,7 @@ class Socket {
                         BET.view("empty");
                         FUNC.theMessage("Your bet successfully placed", "success")
                     } else {
-                        app.dialog.alert("Odds changed we need second confirmation", "Opps");
+                        // app.dialog.alert("Odds changed we need second confirmation", "Opps");
                     }
                 });
             }
