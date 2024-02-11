@@ -1278,7 +1278,7 @@ class FUNCS {
     }
 
     MarketName(name) {
-        return lang?.outComeMarkets?.[name] ? lang?.outComeMarkets?.[name] : name
+        // return lang?.outComeMarkets?.[name] ? lang?.outComeMarkets?.[name] : name
     }
 
 

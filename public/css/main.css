@@ -24,8 +24,8 @@
   --pointbox: #333333;
   --betslip: #999999;
   --multiborder: #7A8899;
-  --signbet: #20283F;
-  --signborder: #526271;
+  --signbet: #212121;
+  --signborder: #444444;
   --leftpreborder: #454545;
   --preactive: #ff0;
   --place: #858B9D;
@@ -3373,12 +3373,14 @@ p {
 
 .dashboard__body__wrap {
   overflow: hidden;
+  border-radius: 9px;
 }
 .dashboard__body__wrap .account__head {
   color: var(--white);
   background: var(--slidebox);
   padding: 20px 30px 27px;
   z-index: 1;
+  border-radius: 9px;
 }
 .dashboard__body__wrap .account__head::before {
   position: absolute;

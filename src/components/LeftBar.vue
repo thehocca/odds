@@ -3,7 +3,7 @@
         <div class="popular__events__left display991 leftscroll-side">
             <div class="popular__events__head">
                 <h5>
-                    Popular events
+                    Popüler
                 </h5>
                 <ul>
                     <li>
@@ -19,7 +19,7 @@
             </div>
             <div class="star__wrap">
                 <span><img src="/img/leftmenu/start.png" alt="img"></span>
-                <span>Favorites</span>
+                <span>Favoriler</span>
             </div>
             <div class="prematch__wrap">
                 <div class="nav" id="nav-tabpre" role="tablist">

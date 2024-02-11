@@ -5,7 +5,7 @@ import Loader from '@/components/Loader.vue'
 <template>
     <Loader v-if="loader" :text="loaderText" />
 
-    <iframe v-if="gameStatus" :src="game" style="width: 100%; height: 100vh; position: fixed; top: 0px; z-index: 99999 !important;" frameborder="0"></iframe>
+    <iframe v-if="gameStatus" :src="game" style="width: 100%; height: 100vh; position: fixed; top: 0px; z-index: 999999 !important;" frameborder="0"></iframe>
 </template>
 
 <script>

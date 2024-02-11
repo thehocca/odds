@@ -196,12 +196,13 @@ $(document).ready(function () {
 		});
 		dropdownContent.each(function () {
 		$(this).on("click", function (e) {
-			e.stopPropagation();
+		//	e.stopPropagation();
 		});
 		});
 		$(document).on("click", function () {
 		$("body").removeClass("custom-dropdown-open");
 		dropdownContent.removeClass("is-open");
+		// $(".custom-dropdown").click()
 		});
 	}
 	// Custom Dropdown End

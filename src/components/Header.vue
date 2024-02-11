@@ -8,6 +8,24 @@
                             <img src="/img/logo/logo.png" alt="logo">
                         </RouterLink>
                     </div>
+                    <!-- <div class="lang d-flex align-items-center px-2">
+                        <div class="language__wrap">
+                            <div class="flag">
+                                <img src="/img/header/uk.png" alt="flag">
+                            </div>
+                            <select name="flag" id="flag-img1">
+                                <option value="1">
+                                    En
+                                </option>
+                                <option value="1">
+                                    Cy
+                                </option>
+                                <option value="1">
+                                Et
+                                </option>
+                            </select>
+                        </div> 
+                    </div> -->
                     <ul class="main-menu">
                         <li v-if="sessionToken">
                             <RouterLink to="/" class="active">
@@ -25,9 +43,11 @@
                             </RouterLink>
                         </li>
                         <li class="cmn-grp">
-                            <span class="cmn--btn text-dark">
-                                <span class="rela">Deposit</span>
-                            </span>
+                            <RouterLink to="/accounts/tickets">
+                                <span class="cmn--btn text-dark">
+                                    <span class="rela">Kuponlar</span>
+                                </span>
+                            </RouterLink>
                         </li>
                     </ul>
                 </div>

@@ -81,22 +81,22 @@
                                     </RouterLink>
                                 </li>
                                 <li>
-                                    <RouterLink to="/account/tickets?filter=win">
+                                    <RouterLink to="/account/tickets/won">
                                         Kazandı
                                     </RouterLink>
                                 </li>
                                 <li>
-                                    <RouterLink to="/account/tickets?filter=lost">
+                                    <RouterLink to="/account/tickets/lost">
                                         Kaybetti
                                     </RouterLink>
                                 </li>
                                 <li>
-                                    <RouterLink to="/account/tickets?filter=cashout">
+                                    <RouterLink to="/account/tickets/cashout">
                                         Cashout
                                     </RouterLink>
                                 </li>
                                 <li>
-                                    <RouterLink to="/account/tickets?filter=cancelled">
+                                    <RouterLink to="/account/tickets/cancelled">
                                         İptal
                                     </RouterLink>
                                 </li>
@@ -114,51 +114,23 @@
                                         {{ i.dates.create2 }}
                                     </div>
                                     <div class="col-3 col-lg-2 text-center">
-                                        {{ i.totalStake + ' ' + i.currency }}
+                                        {{ i.totalBets + ' x ' + i.totalStake + ' ' + i.currency }}
                                     </div>
                                     <div class="col-3 col-lg-2 text-center">
                                         {{ i.ticketPossibleWin + ' ' + i.currency }}
                                     </div>
                                     <div class="col-6 col-lg-2 pt-3 pt-lg-0">
-                                        <RouterLink to="/" class="btn btn-sm btn-warning w-100 py-2">
-                                            CASHOUT <b>3 {{ userInfo?.finance?.currency }}</b>
+                                        <RouterLink to="/" class="btn btn-sm theme-button w-100 py-2">
+                                            CASHOUT <b>3 {{ i.currency }}</b>
                                         </RouterLink>
                                     </div>
                                     <div class="col-6 col-lg-1 pt-3 pt-lg-0">
-                                        <RouterLink :to="'/account/tickets/'+i.cid" class="btn btn-sm btn-primary w-100 py-2">
+                                        <RouterLink :to="'/account/tickets/detail/'+i.cid" class="btn btn-sm btn-primary py-2">
                                             İNCELE
                                         </RouterLink>
                                     </div>
                                 </div>
                             </div>
-
-
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Durum</th>
-                                        <th>Tarih</th>
-                                        <th>Kupon</th>
-                                        <th>Olası Kazanç</th>
-                                        <th>CashOut</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="i in tickets">
-                                        <td>
-                                            <span v-if="i.results.status === 'pending'" class="text-warning"><b> BEKLİYOR </b></span>
-                                            <span v-else-if="i.results.status === 'won'" class="text-success"><b> KAZANDI </b></span>
-                                            <span v-else-if="i.results.status === 'sold'" class="text-danger"><b> KAYBETTİ </b></span>
-                                        </td>
-                                        <td>{{ i.dates.lastDate }}</td>
-                                        <td>{{ i.totalStake + ' ' + i.currency }}</td>
-                                        <td><b>{{ i.ticketPossibleWin + ' ' + i.currency }}</b></td>
-                                        <td>
-                                            <a href="" class="btn my-bets-btn-2 text-white w-100">Cashout {{ i.results.cashout + ' ' + i.currency }}</a>    
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
@@ -199,10 +171,12 @@ export default {
                     else
                         this.filter = 'pending';
 
+                        console.log(_V.TICKETS);
+
                     // TICKETLERI FİLTRELE
                     const filteredTickets = await _V.TICKETS.filter(elem => elem.results.status == this.filter);
 
-                    console.log(filteredTickets);
+                    // console.log(filteredTickets);
 
                     if (filteredTickets.length > 0) {
                         this.tickets = FUNC.ticketMutation(filteredTickets);

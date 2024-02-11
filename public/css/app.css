@@ -1,19 +1,8 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 body {font-family: Lato !important;} */
 
-div.custom-loader {
-    width: 100%;
-    height: 100%;
-    background-color:rgba(36,36,36,0.5);
-    z-index: 99999;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(7px);
-}
+div.custom-loader {width: 100%; height: 100%; background-color:rgba(36,36,36,0.5); z-index: 99999; position: fixed; top: 0px; left: 0px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(7px);}
+div.custom-loader {width: 100%; height: 100%; background-color:rgba(36,36,36,0.5); z-index: 99999; position: fixed; top: 0px; left: 0px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(7px);}
 div.custom-loader div.spinner {width: 40px; height: 40px; position: absolute; top: 45%; background-image: url(../img/spinner.14c343237982c8bc9569853b60e6df897930016e125e4f0da2294982cf1a71b6.png); background-size: 100%; background-repeat: no-repeat; -webkit-animation-name: Spinner-styles-module-spin; animation-name: Spinner-styles-module-spin; -webkit-animation-duration: 1s; animation-duration: 1s; -webkit-animation-timing-function: linear; animation-timing-function: linear; -webkit-animation-iteration-count: infinite; animation-iteration-count: infinite;}
 
 @-webkit-keyframes Spinner-styles-module-spin {0% {-webkit-transform: rotate(0deg); transform: rotate(0deg);} to {-webkit-transform: rotate(1turn); transform: rotate(1turn);}}
@@ -38,3 +27,5 @@ ul.account-tickets {overflow-x: auto; overflow-y: hidden; white-space: nowrap; -
 ul.account-tickets li {list-style: none; display: inline-block;}
 ul.account-tickets li a {line-height: 45px; margin-right: 35px; font-size: 20px;}
 ul.account-tickets li a.active {color: var(--theme-one);}
+
+.theme-button {background-color: #ff0;}

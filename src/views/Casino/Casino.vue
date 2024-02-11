@@ -63,38 +63,6 @@
                     </div>
                 </div>
             </div>
-            <!--footer Bottom Menu-->
-            <ul class="footer__menu d-lg-none">
-                <li>
-                    <a href="sportsbetting.html" class="d-grid justify-content-center">
-                        <span><i class="fas fa-table-tennis"></i></span>
-                        <span class="texta">Sports</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#0" class="d-grid justify-content-center" data-bs-toggle="modal" data-bs-target="#eventsp">
-                        <span><i class="fa-solid fa-gift"></i></span>
-                        <span class="texta">Events</span>
-                    </a>
-                </li>
-                <li class="header-bartwo d-lg-none">
-                    <span class="bars"><i class="fas fa-bars"></i></span>
-                    <span class="cros"> <i class="fa-solid fa-xmark"></i></span>
-                </li>
-                <li>
-                    <a href="#0" class="d-grid justify-content-center" data-bs-toggle="modal" data-bs-target="#betsp">
-                        <span> <i class="fas fa-ticket-alt"></i></span>
-                        <span class="texta">My Bet</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="dashboard.html" class="d-grid justify-content-center">
-                        <span> <i class="far fa-user-circle"></i></span>
-                        <span class="texta"> Account</span>
-                    </a>
-                </li>
-            </ul>
-            <!--footer Bottom Menu-->
         </section>
 
         <Loader v-if="loader" :text="loaderText" />
@@ -110,6 +78,22 @@ export default {
     data() {
         return {
             categories: [
+                {
+                    id: 1,
+                    name: 'Netent',
+                },
+                {
+                    id: 2,
+                    name: 'Kaju',
+                },
+                {
+                    id: 1,
+                    name: 'Netent',
+                },
+                {
+                    id: 2,
+                    name: 'Netent',
+                },
                 {
                     id: 1,
                     name: 'Netent',
