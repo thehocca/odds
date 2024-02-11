@@ -113,9 +113,11 @@ import LeftBar from '../components/LeftBar.vue';
                                                         <!--Live__heightlight Here-->
                                                         <div class="live__heightlight mb__30">
                                                             <div class="section__title">
-                                                                <h4>
+                                                                <h4 class="float-left d-inline-block">
                                                                     Canlı Maçlar
                                                                 </h4>
+
+                                                                <input type="text" @keyup="searchFunc($event.target.value)" class="d-inline-block bg-dark rounded" placeholder="Ara..." style="float: right;">
                                                             </div>
                                                             <div class="heightlight__tab">
                                                                 <div class="nav b__bottom" id="nav-tabheight"
@@ -309,24 +311,24 @@ import LeftBar from '../components/LeftBar.vue';
                                                                                                 <div class="col-2">
                                                                                                     <div>
                                                                                                         <small>
-                                                                                                            <!-- {{ i.date.date }} -->
+                                                                                                            {{ i?.date?.date }}
                                                                                                         </small>
                                                                                                     </div>
                                                                                                     <div>
                                                                                                         <small>
-                                                                                                            <!-- {{ i.date.hour }} -->
+                                                                                                            {{ i?.date?.hour }}
                                                                                                         </small>
                                                                                                     </div>
                                                                                                 </div>  
                                                                                                 <div class="col-8 col-lg-6 p-0 text-truncate">
                                                                                                     <span>
                                                                                                         <!-- <img v-bind:src="i.jerseys?.[0]" class="d-inline" style="width: 16px"> -->
-                                                                                                        {{ i.competition.competitors[0].name }}
+                                                                                                        {{ i?.competition?.competitors[0]?.name }}
 
                                                                                                         <div class="py-1"></div>    
 
                                                                                                         <!-- <img v-bind:src="i.jerseys?.[1]" class="d-inline" style="width: 16px"> -->
-                                                                                                        {{ i.competition.competitors[1].name }}
+                                                                                                        {{ i?.competition?.competitors[1]?.name }}
                                                                                                     </span>
                                                                                                 </div>
                                                                                                 <div class="col-2 d-flex flex-column">
@@ -837,6 +839,21 @@ export default {
             this.$router.push('/sign-in');
     },
     props: ['matches', 'sports', 'userInfo'],
+    methods: {
+        searchFunc(e) {
+            // ARAMA BÖLÜMÜ DOLU İSE
+            if (e) {
+                this.matches = this.matches.filter(o => o?.competition?.name?.toLowerCase()?.includes(e?.toLowerCase()));
+
+                console.log( this.matches );
+            } else { // ARAMA BÖLÜMÜ BOŞ İSE
+                this.getGames();
+            }
+            // else 
+        },
+
+        
+    },
     computed: {
         sportsFilter() {
         // OBJEYE DÖNŞTÜR & ANA KATEGORİLERİN AKTİF OLANLARINI FİLTRELE

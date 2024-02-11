@@ -78,11 +78,11 @@ export default {
                         // $('div.betslip-content').prepend('<div class="multiple__items"><div class="multiple__head"><div class="multiple__left"><span>'+value.competition.competitors[0].name+' vs ' +value.competition.competitors[1].name+ '</span></div></div></div>')
                         $('div.betslip-content').prepend('<div class="multiple__items"></div>')
                         $('div.betslip-content div.multiple__items:first-child').prepend('<div class="multiple__head"></div>')
-                        $('div.betslip-content div.multiple__items:first-child div.multiple__head').prepend('<div class="multiple__left"></div><a href="javascript:;" data-match-id="' + value.matchId + '" data-outcome-id="' + outcome.outComeId + '" class="cros remove-odd""><i class="fa fa-close"></i></a>')
-                        $('div.betslip-content div.multiple__items:first-child div.multiple__head div.multiple__left:first-child').prepend('<span>'+value.competition.competitors[0].name + ' vs ' + value.competition.competitors[1].name+'</span>')
+                        $('div.betslip-content div.multiple__items:first-child div.multiple__head').prepend('<div class="multiple__left"></div><a href="javascript:;" data-match-id="' + value?.matchId + '" data-outcome-id="' + outcome?.outComeId + '" class="cros remove-odd""><i class="fa fa-close"></i></a>')
+                        $('div.betslip-content div.multiple__items:first-child div.multiple__head div.multiple__left:first-child').prepend('<span>'+value.competition?.competitors[0]?.name + ' vs ' + value?.competition?.competitors[1]?.name+'</span>')
                         $('div.betslip-content div.multiple__items:first-child').append('<div class="multiple__point"></div>')
-                        $('div.betslip-content div.multiple__items:first-child div.multiple__point').prepend('<span class="pbox">'+outcome.oddValue+'</span>')
-                        $('div.betslip-content div.multiple__items:first-child div.multiple__point').append('<span class="rightname"><span class="point">'+outcome.marketName+'</span></span>')
+                        $('div.betslip-content div.multiple__items:first-child div.multiple__point').prepend('<span class="pbox">'+outcome?.oddValue+'</span>')
+                        $('div.betslip-content div.multiple__items:first-child div.multiple__point').append('<span class="rightname"><span class="point">'+outcome?.marketName+'</span></span>')
                         // $('div.betslip-content div.multiple__items:first-child div.multiple__head div.multiple__left:first-child').prepend('')
 
                         // MOBİL
