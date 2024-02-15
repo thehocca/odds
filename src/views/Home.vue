@@ -322,12 +322,12 @@ import LeftBar from '../components/LeftBar.vue';
                                                                                                 </div>  
                                                                                                 <div class="col-8 col-lg-6 p-0 text-truncate">
                                                                                                     <span>
-                                                                                                        <!-- <img v-bind:src="i.jerseys?.[0]" class="d-inline" style="width: 16px"> -->
+                                                                                                        <img v-bind:src="i.jerseys?.[0]" class="d-inline" style="width: 16px">
                                                                                                         {{ i?.competition?.competitors[0]?.name }}
 
                                                                                                         <div class="py-1"></div>    
 
-                                                                                                        <!-- <img v-bind:src="i.jerseys?.[1]" class="d-inline" style="width: 16px"> -->
+                                                                                                        <img v-bind:src="i.jerseys?.[1]" class="d-inline" style="width: 16px">
                                                                                                         {{ i?.competition?.competitors[1]?.name }}
                                                                                                     </span>
                                                                                                 </div>

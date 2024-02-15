@@ -1290,6 +1290,10 @@ class FUNCS {
                 item.marketId === 1
             );
         }
+            // console.log(Object.keys(list))
+        // _V.MATCHES = Object.keys(list).forEach(key => {
+        //     list[key].markets = list[key].markets.filter(market => market.marketId === '1');
+        // })
 
         _V.MATCHES = list;
         _V.SPORTS = sports;
@@ -1303,7 +1307,7 @@ class FUNCS {
                 match.startTime = match.competition.startTime;
 
                 // FORMA OLUŞTUR
-                // match.jerseys = [(this.jersey(match.competition?.competitors[0]?.jersey?.[0].base)), (this.jersey(match.competition?.competitors[1]?.jersey?.[0].base,"away"))];
+                match.jerseys = [(this.jersey(match.competition?.competitors[0]?.jersey?.[0]?.base)), (this.jersey(match.competition?.competitors[1]?.jersey?.[0]?.base,"away"))];
 
                 // MARKETID 1 YOKSA LİSTEDEN ÇIKAR
                 match.market1 = match.markets.find(m => m.marketId == 1);
