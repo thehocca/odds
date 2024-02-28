@@ -61,7 +61,7 @@ export default {
             BET.addMatch(matchid, odd, matchid, outcomeid, marketname);
 
             // BETSLIP GUNCELLE 
-            function addBetslip() {
+            function betSlipList() {
 
                 var calculateTicketSummary = BET.calculateTicketSummary()
                 // $('div.right-bar-betslip h3.current-coupon').html(BET.ActiveCoupon.length);
@@ -100,18 +100,16 @@ export default {
 
 
             }
-            addBetslip();
+            betSlipList();
 
 
             // BETSLIP SİL
-            $(document).on('click', 'a.remove-odd', function () {
+            $(document).on('click', 'a.remove-odd', function(){
                 var matchId = $(this).attr('data-match-id');
                 var outcomeId = $(this).attr('data-outcome-id');
 
-                // alert(matchId+'   '+outcomeId);
-
                 BET.removeMatch(matchId, outcomeId);
-                addBetslip();
+                betSlipList();
                 // console.log( addBetslip());
                 $('[data-outcomeid=' + outcomeId + '] [data-matchid=' + matchId + ']').parent().removeClass('active');
 
@@ -119,34 +117,43 @@ export default {
             })
 
             // BETSLIP TEMİZLE
-            $(document).on('click', 'a.clear-betslip', function () {
+            $(document).on('click', 'a.clear-betslip', () => {
                 BET.clearBets();
-                addBetslip();
+                betSlipList();
 
                 $('a.odd').removeClass('active');
                 return false;
             });
 
+            
+            
+           // KUPON OLUŞTUR
+            $(document).on('click', 'a.save-coupon', async () =>  {
+
+                await CON.PlaceBet();
+
+                $('body').append('<div class="custom-loader"><h1 style="font-size: 90px" class="text-white"></h1></div>');
+
+                let counter = 6;
+                const interval = setInterval(() => {
+                    if (counter <= 0) {
+                        clearInterval(interval);
+                        $('.custom-loader').hide();
+                        return;
+                    }
+                    counter--;
+                    $('.custom-loader h1').html(counter);
+                }, 1000);
+
+                return false;
+            });
+
+
+
         });
 
-        // KUPON OLUŞTUR
-        $(document).on('click', 'a.save-coupon', async () => {
 
-            await this.CON.PlaceBet();
 
-            $('body').append('<div class="custom-loader"><h1 style="font-size: 90px" class="text-white"></h1></div>');
-
-            let counter = 6;
-            const interval = setInterval(() => {
-                if (counter <= 0) {
-                    clearInterval(interval);
-                    $('.custom-loader').hide();
-                    return;
-                }
-                counter--;
-                $('.custom-loader h1').html(counter);
-            }, 1000);
-        });
 
 
 
@@ -180,30 +187,39 @@ export default {
                     this.loader = true;
 
                     // İSTEK AT
-                    await FUNC.postRequest(_V.rest.base + "/Books/timeline/", {}, (book, status) => {
-                        Object.keys(book.data).forEach(key => {
-                            // Burada bir atama yapılmaz, sadece mevcut data üzerinde değişiklik yapılır
-                            book.data[key].markets = book.data[key].markets.filter(market => market.marketId === '1');
-                        });
-                        // console.log(book.data) // Gerekirse, sonuçları kontrol etmek için bu satırı kullanabilirsiniz
+                    // await FUNC.postRequest(_V.rest.base + "/Books/timeline/", {}, (book, status) => {
+                    //     // this.matches = FUNC.homeMatches(book.data, this.sports);
+                    //     // this.sports = book.sports;
+
+                    //     console.log(book.data);
+                    //     // LOADER KAPAT
+                    //     this.loader = false;
+
+                    //     // // HİÇ MAÇ YOK İSE
+                    //     // if (this?.matches?.length < 1)
+                    //     //     alert('No match found.');
+
+                    //         console.log(book);
+                    // });
+
+                    await FUNC.postRequest(_V.rest.new_base + "/dashboard/", {}, (book, status) => {
                         this.matches = FUNC.homeMatches(book.data, this.sports);
                         this.sports = book.sports;
 
                         // LOADER KAPAT
                         this.loader = false;
 
-                        // // HİÇ MAÇ YOK İSE
+                        // HİÇ MAÇ YOK İSE
                         if (this.matches.length < 1)
                             alert('No match found.');
 
 
-
-
-
-                        // console.log(this.matches);
-
+                        console.log(this.matches );
 
                     });
+
+                    // console.log(_V.rest.base );
+
 
 
                 } else if (attempt < 10) {

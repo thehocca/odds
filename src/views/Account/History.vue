@@ -125,7 +125,7 @@
                                         <td>4TQRW5WXF4</td>
                                         <td>Credit Card</td>
                                         <td>5,591 USD</td>
-                                        <td class="pending">Prnding</td>
+                                        <td class="pending">Pending</td>
                                         <td>2.70</td>
                                         <td class="bold">...</td>
                                     </tr>

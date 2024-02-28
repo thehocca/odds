@@ -1,4 +1,5 @@
 <script setup>
+import Loader from '../components/Loader.vue';
 import Betslip from '../components/Betslip.vue';
 import LeftBar from '../components/LeftBar.vue';
 </script>
@@ -9,14 +10,14 @@ import LeftBar from '../components/LeftBar.vue';
         <section class="main__tab__slide">
             <ul class="nav nav-tabs" id="myTabmain" role="tablist">
                 <li class="nav-item" role="presentation" v-for="i in sportsFilter">
-                    <RouterLink :to="'/sport/'+i.name" class="prescore__items">
+                    <RouterLink :to="'/sport/' + i.name" class="prescore__items">
                         <button class="nav-link active" id="main-tab" data-bs-toggle="tab" data-bs-target="#mainTab"
                             type="button" role="tab" aria-selected="true">
                             <!-- <span class="icons"><i class="fa fa-home"></i></span> -->
                             <span>{{ i.name }}</span>
-                        </button>        
+                        </button>
                     </RouterLink>
-                   
+
                 </li>
                 <!-- Object.values(sports).find(o => o._is.main == true) -->
             </ul>
@@ -34,7 +35,7 @@ import LeftBar from '../components/LeftBar.vue';
                                 <div class="popular__events__body">
                                     <div class="container-fluid p-0">
                                         <div class="row g-0">
-                                          
+
                                             <LeftBar />
 
                                             <div class="col-xxl-10 col-xl-9 col-lg-9">
@@ -53,31 +54,34 @@ import LeftBar from '../components/LeftBar.vue';
                                                                                 <i class="icon-football"></i>
                                                                             </span>
                                                                             <span>
-                                                                                World Cup 2022
+                                                                                {{ i?.date?.date }}
+
                                                                             </span>
                                                                         </div>
                                                                         <span class="today">
-                                                                            Today / 22:00
+                                                                            {{ i?.date?.hour }}
+
                                                                         </span>
                                                                     </div>
                                                                     <div class="match__vs">
-                                                                        <div class="match__vs__left">
+                                                                        <div class="match__vs__left  text-truncate" style="width: 100px">
                                                                             <span>
-                                                                                Galatasaray
+                                                                                {{ i?.competition?.competitors[0]?.name }}
                                                                             </span>
                                                                             <span class="flag">
-                                                                                <img src="/img/matchfixing/arjentina.png" style="width: 18px">
+                                                                                <img v-bind:src="i.jerseys?.[0]" style="width: 18px">
+
                                                                             </span>
                                                                         </div>
                                                                         <span class="vs">
                                                                             Vs
                                                                         </span>
-                                                                        <div class="match__vs__left">
+                                                                        <div class="match__vs__left  text-truncate" style="width: 100px">
                                                                             <span class="flag">
-                                                                                <img src="/img/matchfixing/france.png" style="width: 18px">
+                                                                                <img v-bind:src="i.jerseys?.[1]" style="width: 18px">
                                                                             </span>
                                                                             <span>
-                                                                                Beşiktaş
+                                                                                {{ i?.competition?.competitors[1]?.name }}
                                                                             </span>
                                                                         </div>
                                                                     </div>
@@ -90,15 +94,73 @@ import LeftBar from '../components/LeftBar.vue';
                                                                     <ul class="match__point">
                                                                         <li style="margin-right: 5px">
                                                                             <span>1</span>
-                                                                            <span>8.55</span>
+                                                                            <a href="javascript:;"
+                                                                                v-if="i?.market1?.outcomes[0]?.odds"
+                                                                                class="odd"
+                                                                                :data-odd="i?.market1?.outcomes[0]?.odds.toFixed(2)"
+                                                                                :data-oddmarketid="i?.market1?.marketId"
+                                                                                :data-outComeId="i?.market1?.outcomes[0]?.outComeId"
+                                                                                :data-matchid="i?.competition?.matchId"
+                                                                                :data-marketname="i?.market1?.marketName">
+                                                                                <span class="ml-3"
+                                                                                    :data-matchid="i?.competition?.matchId">
+                                                                                    {{
+                                                                                        i?.market1?.outcomes[0]?.odds.toFixed(2)
+                                                                                    }}
+                                                                                </span>
+                                                                            </a>
+
+                                                                            <a v-else>
+                                                                                
+                                                                                <i class="fa fa-lock"></i>
+                                                                            </a>
+
+                                                                            
                                                                         </li>
                                                                         <li style="margin-right: 5px">
                                                                             <span>X</span>
-                                                                            <span>6.50</span>
+                                                                            <a href="javascript:;"
+                                                                                v-if="i?.market1?.outcomes[1]?.odds"
+                                                                                class=" odd"
+                                                                                :data-odd="i?.market1?.outcomes[1]?.odds.toFixed(2)"
+                                                                                :data-oddmarketid="i?.market1?.marketId"
+                                                                                :data-outComeId="i?.market1?.outcomes[0]?.outComeId"
+                                                                                :data-matchid="i?.competition?.matchId"
+                                                                                :data-marketname="i?.market1?.marketName">
+                                                                                <span class="ml-3"
+                                                                                    :data-matchid="i?.competition?.matchId">
+                                                                                    {{
+                                                                                        i?.market1?.outcomes[1]?.odds.toFixed(2)
+                                                                                    }}
+                                                                                </span>
+                                                                            </a>
+
+                                                                            <a v-else>
+                                                                                <i class="fa fa-lock"></i>
+                                                                            </a>
+
                                                                         </li>
                                                                         <li>
                                                                             <span>2</span>
-                                                                            <span>3.20</span>
+                                                                            <a href="javascript:;"
+                                                                                v-if="i?.market1?.outcomes[2]?.odds"
+                                                                                class="odd"
+                                                                                :data-odd="i?.market1?.outcomes[2]?.odds.toFixed(2)"
+                                                                                :data-oddmarketid="i?.market1?.marketId"
+                                                                                :data-outComeId="i?.market1?.outcomes[0]?.outComeId"
+                                                                                :data-matchid="i?.competition?.matchId"
+                                                                                :data-marketname="i?.market1?.marketName">
+                                                                                <span class="ml-3"
+                                                                                    :data-matchid="i?.competition?.matchId">
+                                                                                    {{
+                                                                                        i?.market1?.outcomes[2]?.odds.toFixed(2)
+                                                                                    }}
+                                                                                </span>
+                                                                            </a>
+
+                                                                            <a v-else>
+                                                                                <i class="fa fa-lock"></i>
+                                                                            </a>
                                                                         </li>
                                                                     </ul>
                                                                 </a>
@@ -114,73 +176,32 @@ import LeftBar from '../components/LeftBar.vue';
                                                         <div class="live__heightlight mb__30">
                                                             <div class="section__title">
                                                                 <h4 class="float-left d-inline-block">
-                                                                    Canlı Maçlar
+                                                                    Maçlar
                                                                 </h4>
-
-                                                                <input type="text" @keyup="searchFunc($event.target.value)" class="d-inline-block bg-dark rounded" placeholder="Ara..." style="float: right;">
                                                             </div>
                                                             <div class="heightlight__tab">
                                                                 <div class="nav b__bottom" id="nav-tabheight"
                                                                     role="tablist">
-                                                                    <button class="nav-link active" id="lightlighttab"
-                                                                        data-bs-toggle="tab" data-bs-target="#height1"
-                                                                        type="button" role="tab" aria-selected="true">
-                                                                        <span class="icons">
+                                                                    <button class="nav-link prematch-category "
+                                                                        v-for="i in sportsFilter" @click="getMatches(i._id)"
+                                                                        id="lightlighttab" data-bs-toggle="tab"
+                                                                        :data-bs-target="'#height' + i._id" type="button"
+                                                                        role="tab" aria-selected="true">
+                                                                        <!-- <span class="icons">
                                                                             <i class="icon-football"></i>
-                                                                        </span>
+                                                                        </span> -->
                                                                         <span>
-                                                                            Football
+                                                                            {{ i.name }}
                                                                         </span>
                                                                     </button>
-                                                                    <button class="nav-link " id="lightlighttab2tennis"
-                                                                        data-bs-toggle="tab" data-bs-target="#height2tennis"
-                                                                        type="button" role="tab" aria-selected="false">
-                                                                        <span class="icons">
-                                                                            <i class="icon-tennis"></i>
-                                                                        </span>
-                                                                        <span>
-                                                                            Tennis
-                                                                        </span>
-                                                                    </button>
-                                                                    <button class="nav-link " id="lightlighttab3basket"
-                                                                        data-bs-toggle="tab" data-bs-target="#basketbtab"
-                                                                        type="button" role="tab" aria-selected="false">
-                                                                        <span class="icons">
-                                                                            <i class="icon-basketball"></i>
-                                                                        </span>
-                                                                        <span>
-                                                                            Basketball
-                                                                        </span>
-                                                                    </button>
-                                                                    <button class="nav-link " id="lightlighttabvolly"
-                                                                        data-bs-toggle="tab" data-bs-target="#vollyballs"
-                                                                        type="button" role="tab" aria-selected="false">
-                                                                        <span class="icons">
-                                                                            <i class="icon-volly"></i>
-                                                                        </span>
-                                                                        <span>
-                                                                            Volleyball
-                                                                        </span>
-                                                                    </button>
-                                                                    <button class="nav-link " id="lightlighttab5cricket"
-                                                                        data-bs-toggle="tab" data-bs-target="#crickettab"
-                                                                        type="button" role="tab" aria-selected="false">
-                                                                        <span class="icons">
-                                                                            <i class="icon-cricket"></i>
-                                                                        </span>
-                                                                        <span>
-                                                                            Cricket
-                                                                        </span>
-                                                                    </button>
-
                                                                 </div>
                                                             </div>
                                                             <div class="height__table">
                                                                 <div class="tab-content" id="nav-tabContentheight">
-                                                                    <!--Football-->
-                                                                    <div class="tab-pane fade text-white show active"
-                                                                        id="height1" role="tabpanel"
-                                                                        aria-labelledby="nav-home-tabpre" tabindex="0">
+                                                                    <!--Futbol-->
+                                                                    <div class="tab-pane fade text-white show active " id="height1"
+                                                                        role="tabpanel" aria-labelledby="nav-home-tabpre"
+                                                                        tabindex="0">
                                                                         <div class="main__table">
                                                                             <div class="section__head b__bottom">
                                                                                 <div class="left__head">
@@ -188,15 +209,16 @@ import LeftBar from '../components/LeftBar.vue';
                                                                                         <i class="icon-football"></i>
                                                                                     </span>
                                                                                     <span>
-                                                                                        Football
+                                                                                        Futbol
                                                                                     </span>
                                                                                 </div>
                                                                                 <div class="right__catagoris">
-                                                                                    <div class="right__cate__items d-none d-lg-flex">
+                                                                                    <div
+                                                                                        class="right__cate__items d-none d-lg-flex">
                                                                                         <select name="cate1"
                                                                                             id="categoris74">
                                                                                             <option value="1">
-                                                                                                Result 1X2
+                                                                                                3 İhtimalli
                                                                                             </option>
                                                                                             <option value="1">
                                                                                                 Result 1X3
@@ -209,11 +231,12 @@ import LeftBar from '../components/LeftBar.vue';
                                                                                             </option>
                                                                                         </select>
                                                                                     </div>
-                                                                                    <div class="right__cate__items d-none d-lg-flex">
+                                                                                    <div
+                                                                                        class="right__cate__items d-none d-lg-flex">
                                                                                         <select name="cate1"
                                                                                             id="categoris2">
                                                                                             <option value="1">
-                                                                                                Over/Under
+                                                                                                Alt Üst
                                                                                             </option>
                                                                                             <option value="1">
                                                                                                 ....
@@ -226,11 +249,12 @@ import LeftBar from '../components/LeftBar.vue';
                                                                                             </option>
                                                                                         </select>
                                                                                     </div>
-                                                                                    <div class="right__cate__items d-none d-lg-flex">
+                                                                                    <div
+                                                                                        class="right__cate__items d-none d-lg-flex">
                                                                                         <select name="cate1"
                                                                                             id="categoris3">
                                                                                             <option value="1">
-                                                                                                Both teams to score?
+                                                                                                Handikap
                                                                                             </option>
                                                                                             <option value="1">
                                                                                                 ...
@@ -256,7 +280,8 @@ import LeftBar from '../components/LeftBar.vue';
                                                                                     <div class="cart__point">
 
                                                                                     </div>
-                                                                                    <div class="mart__point__items d-none d-lg-flex">
+                                                                                    <div
+                                                                                        class="mart__point__items d-none d-lg-flex">
                                                                                         <a href="#0"
                                                                                             class="twing opo twing__right">
                                                                                             <i class="icon-twer"></i>
@@ -281,15 +306,16 @@ import LeftBar from '../components/LeftBar.vue';
                                                                                         class="cart__point cart__point__two d-none d-lg-flex">
                                                                                         Goals
                                                                                     </div>
-                                                                                    <div class="mart__point__two clearfix d-none d-lg-flex">
+                                                                                    <div
+                                                                                        class="mart__point__two clearfix d-none d-lg-flex">
                                                                                         <div class="mart__point__left">
                                                                                             <a href="#box"
                                                                                                 class="point__box bg__none">
-                                                                                                Over
+                                                                                                1
                                                                                             </a>
                                                                                             <a href="#box"
                                                                                                 class="point__box bg__none">
-                                                                                                Under
+                                                                                                2
                                                                                             </a>
                                                                                         </div>
                                                                                         <div class="mart__point__right">
@@ -304,34 +330,49 @@ import LeftBar from '../components/LeftBar.vue';
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="table__items b__bottom py-2" v-for="i in matches">
-                                                                                    <div class="t__items mb-2" style=" min-width: 350px;">
+                                                                                <div class="table__items b__bottom py-2"
+                                                                                    v-for="i in matches">
+                                                                                    <div class="t__items mb-2"
+                                                                                        style=" min-width: 350px;">
                                                                                         <div class="t__items__left w-100">
                                                                                             <div class="row">
                                                                                                 <div class="col-2">
                                                                                                     <div>
                                                                                                         <small>
-                                                                                                            {{ i?.date?.date }}
+                                                                                                            {{ i?.date?.date
+                                                                                                            }}
                                                                                                         </small>
                                                                                                     </div>
                                                                                                     <div>
                                                                                                         <small>
-                                                                                                            {{ i?.date?.hour }}
+                                                                                                            {{ i?.date?.hour
+                                                                                                            }}
                                                                                                         </small>
                                                                                                     </div>
-                                                                                                </div>  
-                                                                                                <div class="col-8 col-lg-6 p-0 text-truncate">
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="col-8 col-lg-6 p-0 text-truncate">
                                                                                                     <span>
-                                                                                                        <img v-bind:src="i.jerseys?.[0]" class="d-inline" style="width: 16px">
-                                                                                                        {{ i?.competition?.competitors[0]?.name }}
+                                                                                                        <img v-bind:src="i.jerseys?.[0]"
+                                                                                                            class="d-inline"
+                                                                                                            style="width: 16px">
+                                                                                                        {{
+                                                                                                            i?.competition?.competitors[0]?.name
+                                                                                                        }}
 
-                                                                                                        <div class="py-1"></div>    
+                                                                                                        <div class="py-1">
+                                                                                                        </div>
 
-                                                                                                        <img v-bind:src="i.jerseys?.[1]" class="d-inline" style="width: 16px">
-                                                                                                        {{ i?.competition?.competitors[1]?.name }}
+                                                                                                        <img v-bind:src="i.jerseys?.[1]"
+                                                                                                            class="d-inline"
+                                                                                                            style="width: 16px">
+                                                                                                        {{
+                                                                                                            i?.competition?.competitors[1]?.name
+                                                                                                        }}
                                                                                                     </span>
                                                                                                 </div>
-                                                                                                <div class="col-2 d-flex flex-column">
+                                                                                                <div
+                                                                                                    class="col-2 d-flex flex-column">
                                                                                                     <h6 class="mt-1">
                                                                                                         0
                                                                                                     </h6>
@@ -339,18 +380,27 @@ import LeftBar from '../components/LeftBar.vue';
                                                                                                         0
                                                                                                     </h6>
                                                                                                 </div>
-                                                                                                <div class="col-2 text-center d-none d-lg-flex align-items-center justify-content-center p-0">
-                                                                                                    <a href="" style="margin-left: 10px">
-                                                                                                        <i class="icon-pmart"></i>  
-                                                                                                    </a>  
-                                                                                                    <a href="" style="margin: 0px 10px 0px 10px">
-                                                                                                        <i class="icon-twer"></i> <small>{{ i.markets.length }}</small>
-                                                                                                    </a>    
+                                                                                                <div
+                                                                                                    class="col-2 text-center d-none d-lg-flex align-items-center justify-content-center p-0">
+                                                                                                    <a href=""
+                                                                                                        style="margin-left: 10px">
+                                                                                                        <i
+                                                                                                            class="icon-pmart"></i>
+                                                                                                    </a>
+                                                                                                    <a href=""
+                                                                                                        style="margin: 0px 10px 0px 10px">
+                                                                                                        <i
+                                                                                                            class="icon-twer"></i>
+                                                                                                        <small>{{
+                                                                                                            i?.markets?.length
+                                                                                                        }}</small>
+                                                                                                    </a>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="cart__point d-none flex-column">
+                                                                                    <div
+                                                                                        class="cart__point d-none flex-column">
                                                                                         <small>
                                                                                             0
                                                                                         </small>
@@ -359,59 +409,129 @@ import LeftBar from '../components/LeftBar.vue';
                                                                                         </small>
                                                                                     </div>
                                                                                     <div class="mart__point__items">
-                                                                                        <a href="javascript:;" class="point__box odd"
-                                                                                            :data-odd="i?.market1?.outcomes[0].odds.toFixed(2)"
+                                                                                        <a href="javascript:;"
+                                                                                            v-if="i?.market1?.outcomes[0]?.odds"
+                                                                                            class="point__box odd"
+                                                                                            :data-odd="i?.market1?.outcomes[0]?.odds.toFixed(2)"
                                                                                             :data-oddmarketid="i?.market1?.marketId"
-                                                                                            :data-outcomeid="i?.market1?.outcomes[0]?.outcomeId"
+                                                                                            :data-outComeId="i?.market1?.outcomes[0]?.outComeId"
                                                                                             :data-matchid="i?.competition?.matchId"
                                                                                             :data-marketname="i?.market1?.marketName">
-                                                                                            <span class="ml-3" :data-matchid="i?.competition?.matchId">
-                                                                                            {{ i?.market1?.outcomes[0].odds.toFixed(2) }}
+                                                                                            <span class="ml-3"
+                                                                                                :data-matchid="i?.competition?.matchId">
+                                                                                                {{
+                                                                                                    i?.market1?.outcomes[0]?.odds.toFixed(2)
+                                                                                                }}
                                                                                             </span>
                                                                                         </a>
-                                                                                        <a href="javascript:;" class="point__box odd"
-                                                                                            :data-odd="i?.market1?.outcomes[1].odds.toFixed(2)"
+
+                                                                                        <a v-else
+                                                                                            class="point__box bg__none">
+                                                                                            <i class="fa fa-lock"></i>
+                                                                                        </a>
+
+                                                                                        <a href="javascript:;"
+                                                                                            v-if="i?.market1?.outcomes[1]?.odds"
+                                                                                            class="point__box odd"
+                                                                                            :data-odd="i?.market1?.outcomes[1]?.odds.toFixed(2)"
                                                                                             :data-oddmarketid="i?.market1?.marketId"
-                                                                                            :data-outcomeid="i?.market1?.outcomes[1]?.outcomeId"
+                                                                                            :data-outComeId="i?.market1?.outcomes[1]?.outComeId"
                                                                                             :data-matchid="i?.competition?.matchId"
                                                                                             :data-marketname="i?.market1?.marketName">
-                                                                                            <span class="ml-3" :data-matchid="i?.competition?.matchId">
-                                                                                                {{ i?.market1?.outcomes[1].odds.toFixed(2) }}
+                                                                                            <span class="ml-3"
+                                                                                                :data-matchid="i?.competition?.matchId">
+                                                                                                {{
+                                                                                                    i?.market1?.outcomes[1]?.odds.toFixed(2)
+                                                                                                }}
                                                                                             </span>
                                                                                         </a>
-                                                                                        <a href="javascript:;" class="point__box odd"
-                                                                                            :data-odd="i?.market1?.outcomes[2].odds.toFixed(2)"
+
+                                                                                        <a v-else
+                                                                                            class="point__box bg__none">
+                                                                                            <i class="fa fa-lock"></i>
+                                                                                        </a>
+
+                                                                                        <a href="javascript:;"
+                                                                                            v-if="i?.market1?.outcomes[2]?.odds"
+                                                                                            class="point__box odd"
+                                                                                            :data-odd="i?.market1?.outcomes[2]?.odds.toFixed(2)"
                                                                                             :data-oddmarketid="i?.market1?.marketId"
-                                                                                            :data-outcomeid="i?.market1?.outcomes[2]?.outcomeId"
+                                                                                            :data-outComeId="i?.market1?.outcomes[2]?.outComeId"
                                                                                             :data-matchid="i?.competition?.matchId"
                                                                                             :data-marketname="i?.market1?.marketName">
-                                                                                             <span class="ml-3" :data-matchid="i?.competition?.matchId">
-                                                                                                {{ i?.market1?.outcomes[2].odds.toFixed(2) }}
+                                                                                            <span class="ml-3"
+                                                                                                :data-matchid="i?.competition?.matchId">
+                                                                                                {{
+                                                                                                    i?.market1?.outcomes[2]?.odds.toFixed(2)
+                                                                                                }}
                                                                                             </span>
                                                                                         </a>
-                                                                                        
+
+                                                                                        <a v-else
+                                                                                            class="point__box bg__none">
+                                                                                            <i class="fa fa-lock"></i>
+                                                                                        </a>
+
                                                                                         <div class="d-block d-lg-none">
-                                                                                            <a href="" style="margin-left: 10px">
-                                                                                                <i class="icon-pmart"></i>  
-                                                                                            </a>  
-                                                                                            <a href="" style="margin: 0px 10px 0px 10px">
-                                                                                                <i class="icon-twer"></i> <small>123</small>
-                                                                                            </a> 
+                                                                                            <a href=""
+                                                                                                style="margin-left: 10px">
+                                                                                                <i class="icon-pmart"></i>
+                                                                                            </a>
+                                                                                            <a href=""
+                                                                                                style="margin: 0px 10px 0px 10px">
+                                                                                                <i class="icon-twer"></i>
+                                                                                                <small>{{ i?.markets?.length
+                                                                                                }}</small>
+                                                                                            </a>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div
                                                                                         class="cart__point cart__point__two d-none d-lg-flex">
                                                                                         2,6
                                                                                     </div>
-                                                                                    <div class="mart__point__two d-none d-lg-flex">
+                                                                                    <div
+                                                                                        class="mart__point__two d-none d-lg-flex">
                                                                                         <div class="mart__point__left">
-                                                                                            <a href="#box"
-                                                                                                class="point__box">
-                                                                                                8.55
+                                                                                            <a href="javascript:;"
+                                                                                                v-if="i?.market406?.outcomes[0]?.odds"
+                                                                                                class="point__box odd"
+                                                                                                :data-odd="i?.market406?.outcomes[0]?.odds.toFixed(2)"
+                                                                                                :data-oddmarketid="i?.market406?.marketId"
+                                                                                                :data-outComeId="i?.market406?.outcomes[0]?.outComeId"
+                                                                                                :data-matchid="i?.competition?.matchId"
+                                                                                                :data-marketname="i?.market406?.marketName">
+                                                                                                <span class="ml-3"
+                                                                                                    :data-matchid="i?.competition?.matchId">
+                                                                                                    {{
+                                                                                                        i?.market406?.outcomes[0]?.odds.toFixed(2)
+                                                                                                    }}
+                                                                                                </span>
                                                                                             </a>
-                                                                                            <a href="#box"
-                                                                                                class="point__box">
-                                                                                                2.70
+
+                                                                                            <a v-else
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-lock"></i>
+                                                                                            </a>
+
+                                                                                            <a href="javascript:;"
+                                                                                                v-if="i?.market406?.outcomes[1]?.odds"
+                                                                                                class="point__box odd"
+                                                                                                :data-odd="i?.market406?.outcomes[1]?.odds.toFixed(2)"
+                                                                                                :data-oddmarketid="i?.market406?.marketId"
+                                                                                                :data-outComeId="i?.market406?.outcomes[1]?.outComeId"
+                                                                                                :data-matchid="i?.competition?.matchId"
+                                                                                                :data-marketname="i?.market406?.marketName">
+                                                                                                <span class="ml-3"
+                                                                                                    :data-matchid="i?.competition?.matchId">
+                                                                                                    {{
+                                                                                                        i?.market406?.outcomes[1]?.odds.toFixed(2)
+                                                                                                    }}
+                                                                                                </span>
+                                                                                            </a>
+
+                                                                                            <a v-else
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-lock"></i>
                                                                                             </a>
                                                                                         </div>
                                                                                         <div class="mart__point__right">
@@ -421,13 +541,12 @@ import LeftBar from '../components/LeftBar.vue';
                                                                                             </a>
                                                                                             <a href="#0"
                                                                                                 class="point__box bg__none">
-                                                                                                <i
-                                                                                                    class="fa fa-star"></i>
+                                                                                                <i class="fa fa-star"></i>
                                                                                             </a>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                      
+
                                                                                 <div class="table__footer">
                                                                                     <a href="#0" class="lobby">
                                                                                         Tüm Maçlar
@@ -441,9 +560,1451 @@ import LeftBar from '../components/LeftBar.vue';
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <!--Football-->
+                                                                    <!--Futbol-->
 
+                                                                    <!-- Basketbol -->
+                                                                    <div class="tab-pane fade text-white show"
+                                                                        id="height2" role="tabpanel"
+                                                                        aria-labelledby="nav-home-tabpre" tabindex="0">
+                                                                        <div class="main__table">
+                                                                            <div class="section__head b__bottom">
+                                                                                <div class="left__head">
+                                                                                    <span class="icons">
+                                                                                        <i class="icon-football"></i>
+                                                                                    </span>
+                                                                                    <span>
+                                                                                        Basketbol
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="right__catagoris">
+                                                                                    <div
+                                                                                        class="right__cate__items d-none d-lg-flex">
+                                                                                        <select name="cate1"
+                                                                                            id="categoris74">
+                                                                                            <option value="1">
+                                                                                                3 İhtimalli
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                Result 1X3
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                Result 1X4
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                Result 1X5
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="right__cate__items d-none d-lg-flex">
+                                                                                        <select name="cate1"
+                                                                                            id="categoris2">
+                                                                                            <option value="1">
+                                                                                                Alt Üst
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ....
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ....
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ....
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="right__cate__items d-none d-lg-flex">
+                                                                                        <select name="cate1"
+                                                                                            id="categoris3">
+                                                                                            <option value="1">
+                                                                                                Handikap
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ...
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ....
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ...
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="table__wrap">
+                                                                                <div
+                                                                                    class="table__items table__pointnone__items">
+                                                                                    <div class="t__items">
+                                                                                        <div class="t__items__left">
 
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="cart__point">
+
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="mart__point__items d-none d-lg-flex">
+                                                                                        <a href="#0"
+                                                                                            class="twing opo twing__right">
+                                                                                            <i class="icon-twer"></i>
+                                                                                        </a>
+                                                                                        <a href="#0" class="mart opo">
+                                                                                            <i class="icon-pmart"></i>
+                                                                                        </a>
+                                                                                        <a href="javascript:;"
+                                                                                            class="point__box bg__none">
+                                                                                            1
+                                                                                        </a>
+                                                                                        <a href="javascript:;"
+                                                                                            class="point__box bg__none">
+                                                                                            X
+                                                                                        </a>
+                                                                                        <a href="javascript:;"
+                                                                                            class="point__box bg__none">
+                                                                                            2
+                                                                                        </a>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="cart__point cart__point__two d-none d-lg-flex">
+                                                                                        Goals
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="mart__point__two clearfix d-none d-lg-flex">
+                                                                                        <div class="mart__point__left">
+                                                                                            <a href="#box"
+                                                                                                class="point__box bg__none">
+                                                                                                1
+                                                                                            </a>
+                                                                                            <a href="#box"
+                                                                                                class="point__box bg__none">
+                                                                                                2
+                                                                                            </a>
+                                                                                        </div>
+                                                                                        <div class="mart__point__right">
+                                                                                            <a href="#0"
+                                                                                                class="point__box bg__none">
+                                                                                                Yes
+                                                                                            </a>
+                                                                                            <a href="#0"
+                                                                                                class="point__box bg__none">
+                                                                                                No
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="table__items b__bottom py-2"
+                                                                                    v-for="i in categoryMatches">
+                                                                                    <div class="t__items mb-2"
+                                                                                        style=" min-width: 350px;">
+                                                                                        <div class="t__items__left w-100">
+                                                                                            <div class="row">
+                                                                                                <div class="col-2">
+                                                                                                    <div>
+                                                                                                        <small>
+                                                                                                            {{
+                                                                                                                i?.date?.date
+                                                                                                            }}
+                                                                                                        </small>
+                                                                                                    </div>
+                                                                                                    <div>
+                                                                                                        <small>
+                                                                                                            {{ i?.date?.hour
+                                                                                                            }}
+                                                                                                        </small>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="col-8 col-lg-6 p-0 text-truncate">
+                                                                                                    <span>
+                                                                                                        <img v-bind:src="i.jerseys?.[0]" class="d-inline" style="width: 16px">
+                                                                                                        {{
+                                                                                                            i?.competition?.competitors[0]?.name
+                                                                                                        }}
+
+                                                                                                        <div class="py-1">
+                                                                                                        </div>
+
+                                                                                                        <img v-bind:src="i.jerseys?.[1]" class="d-inline" style="width: 16px">
+                                                                                                        {{
+                                                                                                            i?.competition?.competitors[1]?.name
+                                                                                                        }}
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="col-2 d-flex flex-column">
+                                                                                                    <h6 class="mt-1">
+                                                                                                        0
+                                                                                                    </h6>
+                                                                                                    <h6 class="mt-2">
+                                                                                                        0
+                                                                                                    </h6>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="col-2 text-center d-none d-lg-flex align-items-center justify-content-center p-0">
+                                                                                                    <a href=""
+                                                                                                        style="margin-left: 10px">
+                                                                                                        <i
+                                                                                                            class="icon-pmart"></i>
+                                                                                                    </a>
+                                                                                                    <a href=""
+                                                                                                        style="margin: 0px 10px 0px 10px">
+                                                                                                        <i
+                                                                                                            class="icon-twer"></i>
+                                                                                                        <small>{{
+                                                                                                            i?.markets?.length
+                                                                                                        }}</small>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="cart__point d-none flex-column">
+                                                                                        <small>
+                                                                                            0
+                                                                                        </small>
+                                                                                        <small>
+                                                                                            0
+                                                                                        </small>
+                                                                                    </div>
+                                                                                    <div class="mart__point__items">
+                                                                                        <a href="javascript:;"
+                                                                                            v-if="i?.market1?.outcomes[0]?.odds"
+                                                                                            class="point__box odd"
+                                                                                            :data-odd="i?.market1?.outcomes[0]?.odds.toFixed(2)"
+                                                                                            :data-oddmarketid="i?.market1?.marketId"
+                                                                                            :data-outComeId="i?.market1?.outcomes[0]?.outComeId"
+                                                                                            :data-matchid="i?.competition?.matchId"
+                                                                                            :data-marketname="i?.market1?.marketName">
+                                                                                            <span class="ml-3"
+                                                                                                :data-matchid="i?.competition?.matchId">
+                                                                                                {{
+                                                                                                    i?.market1?.outcomes[0]?.odds.toFixed(2)
+                                                                                                }}
+                                                                                            </span>
+                                                                                        </a>
+
+                                                                                        <a v-else
+                                                                                            class="point__box bg__none">
+                                                                                            <i class="fa fa-lock"></i>
+                                                                                        </a>
+
+                                                                                        <a href="javascript:;"
+                                                                                            v-if="i?.market1?.outcomes[1]?.odds"
+                                                                                            class="point__box odd"
+                                                                                            :data-odd="i?.market1?.outcomes[1]?.odds.toFixed(2)"
+                                                                                            :data-oddmarketid="i?.market1?.marketId"
+                                                                                            :data-outComeId="i?.market1?.outcomes[1]?.outComeId"
+                                                                                            :data-matchid="i?.competition?.matchId"
+                                                                                            :data-marketname="i?.market1?.marketName">
+                                                                                            <span class="ml-3"
+                                                                                                :data-matchid="i?.competition?.matchId">
+                                                                                                {{
+                                                                                                    i?.market1?.outcomes[1]?.odds.toFixed(2)
+                                                                                                }}
+                                                                                            </span>
+                                                                                        </a>
+
+                                                                                        <a v-else
+                                                                                            class="point__box bg__none">
+                                                                                            <i class="fa fa-lock"></i>
+                                                                                        </a>
+
+                                                                                        <a href="javascript:;"
+                                                                                            v-if="i?.market1?.outcomes[2]?.odds"
+                                                                                            class="point__box odd"
+                                                                                            :data-odd="i?.market1?.outcomes[2]?.odds.toFixed(2)"
+                                                                                            :data-oddmarketid="i?.market1?.marketId"
+                                                                                            :data-outComeId="i?.market1?.outcomes[2]?.outComeId"
+                                                                                            :data-matchid="i?.competition?.matchId"
+                                                                                            :data-marketname="i?.market1?.marketName">
+                                                                                            <span class="ml-3"
+                                                                                                :data-matchid="i?.competition?.matchId">
+                                                                                                {{
+                                                                                                    i?.market1?.outcomes[2]?.odds.toFixed(2)
+                                                                                                }}
+                                                                                            </span>
+                                                                                        </a>
+
+                                                                                        <a v-else
+                                                                                            class="point__box bg__none">
+                                                                                            <i class="fa fa-lock"></i>
+                                                                                        </a>
+
+                                                                                        <div class="d-block d-lg-none">
+                                                                                            <a href=""
+                                                                                                style="margin-left: 10px">
+                                                                                                <i class="icon-pmart"></i>
+                                                                                            </a>
+                                                                                            <a href=""
+                                                                                                style="margin: 0px 10px 0px 10px">
+                                                                                                <i class="icon-twer"></i>
+                                                                                                <small>{{ i?.markets?.length
+                                                                                                }}</small>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="cart__point cart__point__two d-none d-lg-flex">
+                                                                                        2,6
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="mart__point__two d-none d-lg-flex">
+                                                                                        <div class="mart__point__left">
+                                                                                            <a href="javascript:;"
+                                                                                                v-if="i?.market406?.outcomes[0]?.odds"
+                                                                                                class="point__box odd"
+                                                                                                :data-odd="i?.market406?.outcomes[0]?.odds.toFixed(2)"
+                                                                                                :data-oddmarketid="i?.market406?.marketId"
+                                                                                                :data-outComeId="i?.market406?.outcomes[0]?.outComeId"
+                                                                                                :data-matchid="i?.competition?.matchId"
+                                                                                                :data-marketname="i?.market406?.marketName">
+                                                                                                <span class="ml-3"
+                                                                                                    :data-matchid="i?.competition?.matchId">
+                                                                                                    {{
+                                                                                                        i?.market406?.outcomes[0]?.odds.toFixed(2)
+                                                                                                    }}
+                                                                                                </span>
+                                                                                            </a>
+
+                                                                                            <a v-else
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-lock"></i>
+                                                                                            </a>
+
+                                                                                            <a href="javascript:;"
+                                                                                                v-if="i?.market406?.outcomes[1]?.odds"
+                                                                                                class="point__box odd"
+                                                                                                :data-odd="i?.market406?.outcomes[1]?.odds.toFixed(2)"
+                                                                                                :data-oddmarketid="i?.market406?.marketId"
+                                                                                                :data-outComeId="i?.market406?.outcomes[1]?.outComeId"
+                                                                                                :data-matchid="i?.competition?.matchId"
+                                                                                                :data-marketname="i?.market406?.marketName">
+                                                                                                <span class="ml-3"
+                                                                                                    :data-matchid="i?.competition?.matchId">
+                                                                                                    {{
+                                                                                                        i?.market406?.outcomes[1]?.odds.toFixed(2)
+                                                                                                    }}
+                                                                                                </span>
+                                                                                            </a>
+
+                                                                                            <a v-else
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-lock"></i>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                        <div class="mart__point__right">
+                                                                                            <a href="#0"
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-lock"></i>
+                                                                                            </a>
+                                                                                            <a href="#0"
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-star"></i>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="table__footer">
+                                                                                    <a href="#0" class="lobby">
+                                                                                        Tüm Maçlar
+                                                                                    </a>
+                                                                                    <a href="#0" class="footerpoing">
+                                                                                        <span>{{ matches.length }}</span>
+                                                                                        <span><i
+                                                                                                class="fas fa-angle-right"></i></span>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--Basketbol-->
+
+                                                                    <!-- Beyzbol -->
+                                                                    <div class="tab-pane fade text-white show" id="height3"
+                                                                        role="tabpanel" aria-labelledby="nav-home-tabpre"
+                                                                        tabindex="0">
+                                                                        <div class="main__table">
+                                                                            <div class="section__head b__bottom">
+                                                                                <div class="left__head">
+                                                                                    <span class="icons">
+                                                                                        <i class="icon-football"></i>
+                                                                                    </span>
+                                                                                    <span>
+                                                                                        Basketbol
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="right__catagoris">
+                                                                                    <div
+                                                                                        class="right__cate__items d-none d-lg-flex">
+                                                                                        <select name="cate1"
+                                                                                            id="categoris74">
+                                                                                            <option value="1">
+                                                                                                3 İhtimalli
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                Result 1X3
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                Result 1X4
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                Result 1X5
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="right__cate__items d-none d-lg-flex">
+                                                                                        <select name="cate1"
+                                                                                            id="categoris2">
+                                                                                            <option value="1">
+                                                                                                Alt Üst
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ....
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ....
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ....
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="right__cate__items d-none d-lg-flex">
+                                                                                        <select name="cate1"
+                                                                                            id="categoris3">
+                                                                                            <option value="1">
+                                                                                                Handikap
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ...
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ....
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ...
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="table__wrap">
+                                                                                <div
+                                                                                    class="table__items table__pointnone__items">
+                                                                                    <div class="t__items">
+                                                                                        <div class="t__items__left">
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="cart__point">
+
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="mart__point__items d-none d-lg-flex">
+                                                                                        <a href="#0"
+                                                                                            class="twing opo twing__right">
+                                                                                            <i class="icon-twer"></i>
+                                                                                        </a>
+                                                                                        <a href="#0" class="mart opo">
+                                                                                            <i class="icon-pmart"></i>
+                                                                                        </a>
+                                                                                        <a href="javascript:;"
+                                                                                            class="point__box bg__none">
+                                                                                            1
+                                                                                        </a>
+                                                                                        <a href="javascript:;"
+                                                                                            class="point__box bg__none">
+                                                                                            X
+                                                                                        </a>
+                                                                                        <a href="javascript:;"
+                                                                                            class="point__box bg__none">
+                                                                                            2
+                                                                                        </a>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="cart__point cart__point__two d-none d-lg-flex">
+                                                                                        Goals
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="mart__point__two clearfix d-none d-lg-flex">
+                                                                                        <div class="mart__point__left">
+                                                                                            <a href="#box"
+                                                                                                class="point__box bg__none">
+                                                                                                1
+                                                                                            </a>
+                                                                                            <a href="#box"
+                                                                                                class="point__box bg__none">
+                                                                                                2
+                                                                                            </a>
+                                                                                        </div>
+                                                                                        <div class="mart__point__right">
+                                                                                            <a href="#0"
+                                                                                                class="point__box bg__none">
+                                                                                                Yes
+                                                                                            </a>
+                                                                                            <a href="#0"
+                                                                                                class="point__box bg__none">
+                                                                                                No
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="table__items b__bottom py-2"
+                                                                                    v-for="i in categoryMatches">
+                                                                                    <div class="t__items mb-2"
+                                                                                        style=" min-width: 350px;">
+                                                                                        <div class="t__items__left w-100">
+                                                                                            <div class="row">
+                                                                                                <div class="col-2">
+                                                                                                    <div>
+                                                                                                        <small>
+                                                                                                            {{
+                                                                                                                i?.date?.date
+                                                                                                            }}
+                                                                                                        </small>
+                                                                                                    </div>
+                                                                                                    <div>
+                                                                                                        <small>
+                                                                                                            {{ i?.date?.hour
+                                                                                                            }}
+                                                                                                        </small>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="col-8 col-lg-6 p-0 text-truncate">
+                                                                                                    <span>
+                                                                                                        <img v-bind:src="i.jerseys?.[0]" class="d-inline" style="width: 16px">
+                                                                                                        {{
+                                                                                                            i?.competition?.competitors[0]?.name
+                                                                                                        }}
+
+                                                                                                        <div class="py-1">
+                                                                                                        </div>
+
+                                                                                                        <img v-bind:src="i.jerseys?.[1]" class="d-inline" style="width: 16px">
+                                                                                                        {{
+                                                                                                            i?.competition?.competitors[1]?.name
+                                                                                                        }}
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="col-2 d-flex flex-column">
+                                                                                                    <h6 class="mt-1">
+                                                                                                        0
+                                                                                                    </h6>
+                                                                                                    <h6 class="mt-2">
+                                                                                                        0
+                                                                                                    </h6>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="col-2 text-center d-none d-lg-flex align-items-center justify-content-center p-0">
+                                                                                                    <a href=""
+                                                                                                        style="margin-left: 10px">
+                                                                                                        <i
+                                                                                                            class="icon-pmart"></i>
+                                                                                                    </a>
+                                                                                                    <a href=""
+                                                                                                        style="margin: 0px 10px 0px 10px">
+                                                                                                        <i
+                                                                                                            class="icon-twer"></i>
+                                                                                                        <small>{{
+                                                                                                            i?.markets?.length
+                                                                                                        }}</small>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="cart__point d-none flex-column">
+                                                                                        <small>
+                                                                                            0
+                                                                                        </small>
+                                                                                        <small>
+                                                                                            0
+                                                                                        </small>
+                                                                                    </div>
+                                                                                    <div class="mart__point__items">
+                                                                                        <a href="javascript:;"
+                                                                                            v-if="i?.market1?.outcomes[0]?.odds"
+                                                                                            class="point__box odd"
+                                                                                            :data-odd="i?.market1?.outcomes[0]?.odds.toFixed(2)"
+                                                                                            :data-oddmarketid="i?.market1?.marketId"
+                                                                                            :data-outComeId="i?.market1?.outcomes[0]?.outComeId"
+                                                                                            :data-matchid="i?.competition?.matchId"
+                                                                                            :data-marketname="i?.market1?.marketName">
+                                                                                            <span class="ml-3"
+                                                                                                :data-matchid="i?.competition?.matchId">
+                                                                                                {{
+                                                                                                    i?.market1?.outcomes[0]?.odds.toFixed(2)
+                                                                                                }}
+                                                                                            </span>
+                                                                                        </a>
+
+                                                                                        <a v-else
+                                                                                            class="point__box bg__none">
+                                                                                            <i class="fa fa-lock"></i>
+                                                                                        </a>
+
+                                                                                        <a href="javascript:;"
+                                                                                            v-if="i?.market1?.outcomes[1]?.odds"
+                                                                                            class="point__box odd"
+                                                                                            :data-odd="i?.market1?.outcomes[1]?.odds.toFixed(2)"
+                                                                                            :data-oddmarketid="i?.market1?.marketId"
+                                                                                            :data-outComeId="i?.market1?.outcomes[1]?.outComeId"
+                                                                                            :data-matchid="i?.competition?.matchId"
+                                                                                            :data-marketname="i?.market1?.marketName">
+                                                                                            <span class="ml-3"
+                                                                                                :data-matchid="i?.competition?.matchId">
+                                                                                                {{
+                                                                                                    i?.market1?.outcomes[1]?.odds.toFixed(2)
+                                                                                                }}
+                                                                                            </span>
+                                                                                        </a>
+
+                                                                                        <a v-else
+                                                                                            class="point__box bg__none">
+                                                                                            <i class="fa fa-lock"></i>
+                                                                                        </a>
+
+                                                                                        <a href="javascript:;"
+                                                                                            v-if="i?.market1?.outcomes[2]?.odds"
+                                                                                            class="point__box odd"
+                                                                                            :data-odd="i?.market1?.outcomes[2]?.odds.toFixed(2)"
+                                                                                            :data-oddmarketid="i?.market1?.marketId"
+                                                                                            :data-outComeId="i?.market1?.outcomes[2]?.outComeId"
+                                                                                            :data-matchid="i?.competition?.matchId"
+                                                                                            :data-marketname="i?.market1?.marketName">
+                                                                                            <span class="ml-3"
+                                                                                                :data-matchid="i?.competition?.matchId">
+                                                                                                {{
+                                                                                                    i?.market1?.outcomes[2]?.odds.toFixed(2)
+                                                                                                }}
+                                                                                            </span>
+                                                                                        </a>
+
+                                                                                        <a v-else
+                                                                                            class="point__box bg__none">
+                                                                                            <i class="fa fa-lock"></i>
+                                                                                        </a>
+
+                                                                                        <div class="d-block d-lg-none">
+                                                                                            <a href=""
+                                                                                                style="margin-left: 10px">
+                                                                                                <i class="icon-pmart"></i>
+                                                                                            </a>
+                                                                                            <a href=""
+                                                                                                style="margin: 0px 10px 0px 10px">
+                                                                                                <i class="icon-twer"></i>
+                                                                                                <small>{{ i?.markets?.length
+                                                                                                }}</small>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="cart__point cart__point__two d-none d-lg-flex">
+                                                                                        2,6
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="mart__point__two d-none d-lg-flex">
+                                                                                        <div class="mart__point__left">
+                                                                                            <a href="javascript:;"
+                                                                                                v-if="i?.market406?.outcomes[0]?.odds"
+                                                                                                class="point__box odd"
+                                                                                                :data-odd="i?.market406?.outcomes[0]?.odds.toFixed(2)"
+                                                                                                :data-oddmarketid="i?.market406?.marketId"
+                                                                                                :data-outComeId="i?.market406?.outcomes[0]?.outComeId"
+                                                                                                :data-matchid="i?.competition?.matchId"
+                                                                                                :data-marketname="i?.market406?.marketName">
+                                                                                                <span class="ml-3"
+                                                                                                    :data-matchid="i?.competition?.matchId">
+                                                                                                    {{
+                                                                                                        i?.market406?.outcomes[0]?.odds.toFixed(2)
+                                                                                                    }}
+                                                                                                </span>
+                                                                                            </a>
+
+                                                                                            <a v-else
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-lock"></i>
+                                                                                            </a>
+
+                                                                                            <a href="javascript:;"
+                                                                                                v-if="i?.market406?.outcomes[1]?.odds"
+                                                                                                class="point__box odd"
+                                                                                                :data-odd="i?.market406?.outcomes[1]?.odds.toFixed(2)"
+                                                                                                :data-oddmarketid="i?.market406?.marketId"
+                                                                                                :data-outComeId="i?.market406?.outcomes[1]?.outComeId"
+                                                                                                :data-matchid="i?.competition?.matchId"
+                                                                                                :data-marketname="i?.market406?.marketName">
+                                                                                                <span class="ml-3"
+                                                                                                    :data-matchid="i?.competition?.matchId">
+                                                                                                    {{
+                                                                                                        i?.market406?.outcomes[1]?.odds.toFixed(2)
+                                                                                                    }}
+                                                                                                </span>
+                                                                                            </a>
+
+                                                                                            <a v-else
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-lock"></i>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                        <div class="mart__point__right">
+                                                                                            <a href="#0"
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-lock"></i>
+                                                                                            </a>
+                                                                                            <a href="#0"
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-star"></i>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="table__footer">
+                                                                                    <a href="#0" class="lobby">
+                                                                                        Tüm Maçlar
+                                                                                    </a>
+                                                                                    <a href="#0" class="footerpoing">
+                                                                                        <span>{{ matches.length }}</span>
+                                                                                        <span><i
+                                                                                                class="fas fa-angle-right"></i></span>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--Beyzbol-->
+
+                                                                    <!-- Buz Hokeyi -->
+                                                                    <div class="tab-pane fade text-white show" id="height4"
+                                                                        role="tabpanel" aria-labelledby="nav-home-tabpre"
+                                                                        tabindex="0">
+                                                                        <div class="main__table">
+                                                                            <div class="section__head b__bottom">
+                                                                                <div class="left__head">
+                                                                                    <span class="icons">
+                                                                                        <i class="icon-football"></i>
+                                                                                    </span>
+                                                                                    <span>
+                                                                                        Basketbol
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="right__catagoris">
+                                                                                    <div
+                                                                                        class="right__cate__items d-none d-lg-flex">
+                                                                                        <select name="cate1"
+                                                                                            id="categoris74">
+                                                                                            <option value="1">
+                                                                                                3 İhtimalli
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                Result 1X3
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                Result 1X4
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                Result 1X5
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="right__cate__items d-none d-lg-flex">
+                                                                                        <select name="cate1"
+                                                                                            id="categoris2">
+                                                                                            <option value="1">
+                                                                                                Alt Üst
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ....
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ....
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ....
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="right__cate__items d-none d-lg-flex">
+                                                                                        <select name="cate1"
+                                                                                            id="categoris3">
+                                                                                            <option value="1">
+                                                                                                Handikap
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ...
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ....
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ...
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="table__wrap">
+                                                                                <div
+                                                                                    class="table__items table__pointnone__items">
+                                                                                    <div class="t__items">
+                                                                                        <div class="t__items__left">
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="cart__point">
+
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="mart__point__items d-none d-lg-flex">
+                                                                                        <a href="#0"
+                                                                                            class="twing opo twing__right">
+                                                                                            <i class="icon-twer"></i>
+                                                                                        </a>
+                                                                                        <a href="#0" class="mart opo">
+                                                                                            <i class="icon-pmart"></i>
+                                                                                        </a>
+                                                                                        <a href="javascript:;"
+                                                                                            class="point__box bg__none">
+                                                                                            1
+                                                                                        </a>
+                                                                                        <a href="javascript:;"
+                                                                                            class="point__box bg__none">
+                                                                                            X
+                                                                                        </a>
+                                                                                        <a href="javascript:;"
+                                                                                            class="point__box bg__none">
+                                                                                            2
+                                                                                        </a>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="cart__point cart__point__two d-none d-lg-flex">
+                                                                                        Goals
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="mart__point__two clearfix d-none d-lg-flex">
+                                                                                        <div class="mart__point__left">
+                                                                                            <a href="#box"
+                                                                                                class="point__box bg__none">
+                                                                                                1
+                                                                                            </a>
+                                                                                            <a href="#box"
+                                                                                                class="point__box bg__none">
+                                                                                                2
+                                                                                            </a>
+                                                                                        </div>
+                                                                                        <div class="mart__point__right">
+                                                                                            <a href="#0"
+                                                                                                class="point__box bg__none">
+                                                                                                Yes
+                                                                                            </a>
+                                                                                            <a href="#0"
+                                                                                                class="point__box bg__none">
+                                                                                                No
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="table__items b__bottom py-2"
+                                                                                    v-for="i in categoryMatches">
+                                                                                    <div class="t__items mb-2"
+                                                                                        style=" min-width: 350px;">
+                                                                                        <div class="t__items__left w-100">
+                                                                                            <div class="row">
+                                                                                                <div class="col-2">
+                                                                                                    <div>
+                                                                                                        <small>
+                                                                                                            {{
+                                                                                                                i?.date?.date
+                                                                                                            }}
+                                                                                                        </small>
+                                                                                                    </div>
+                                                                                                    <div>
+                                                                                                        <small>
+                                                                                                            {{ i?.date?.hour
+                                                                                                            }}
+                                                                                                        </small>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="col-8 col-lg-6 p-0 text-truncate">
+                                                                                                    <span>
+                                                                                                        <img v-bind:src="i.jerseys?.[0]" class="d-inline" style="width: 16px">
+                                                                                                        {{
+                                                                                                            i?.competition?.competitors[0]?.name
+                                                                                                        }}
+
+                                                                                                        <div class="py-1">
+                                                                                                        </div>
+
+                                                                                                        <img v-bind:src="i.jerseys?.[1]" class="d-inline" style="width: 16px">
+                                                                                                        {{
+                                                                                                            i?.competition?.competitors[1]?.name
+                                                                                                        }}
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="col-2 d-flex flex-column">
+                                                                                                    <h6 class="mt-1">
+                                                                                                        0
+                                                                                                    </h6>
+                                                                                                    <h6 class="mt-2">
+                                                                                                        0
+                                                                                                    </h6>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="col-2 text-center d-none d-lg-flex align-items-center justify-content-center p-0">
+                                                                                                    <a href=""
+                                                                                                        style="margin-left: 10px">
+                                                                                                        <i
+                                                                                                            class="icon-pmart"></i>
+                                                                                                    </a>
+                                                                                                    <a href=""
+                                                                                                        style="margin: 0px 10px 0px 10px">
+                                                                                                        <i
+                                                                                                            class="icon-twer"></i>
+                                                                                                        <small>{{
+                                                                                                            i?.markets?.length
+                                                                                                        }}</small>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="cart__point d-none flex-column">
+                                                                                        <small>
+                                                                                            0
+                                                                                        </small>
+                                                                                        <small>
+                                                                                            0
+                                                                                        </small>
+                                                                                    </div>
+                                                                                    <div class="mart__point__items">
+                                                                                        <a href="javascript:;"
+                                                                                            v-if="i?.market1?.outcomes[0]?.odds"
+                                                                                            class="point__box odd"
+                                                                                            :data-odd="i?.market1?.outcomes[0]?.odds.toFixed(2)"
+                                                                                            :data-oddmarketid="i?.market1?.marketId"
+                                                                                            :data-outComeId="i?.market1?.outcomes[0]?.outComeId"
+                                                                                            :data-matchid="i?.competition?.matchId"
+                                                                                            :data-marketname="i?.market1?.marketName">
+                                                                                            <span class="ml-3"
+                                                                                                :data-matchid="i?.competition?.matchId">
+                                                                                                {{
+                                                                                                    i?.market1?.outcomes[0]?.odds.toFixed(2)
+                                                                                                }}
+                                                                                            </span>
+                                                                                        </a>
+
+                                                                                        <a v-else
+                                                                                            class="point__box bg__none">
+                                                                                            <i class="fa fa-lock"></i>
+                                                                                        </a>
+
+                                                                                        <a href="javascript:;"
+                                                                                            v-if="i?.market1?.outcomes[1]?.odds"
+                                                                                            class="point__box odd"
+                                                                                            :data-odd="i?.market1?.outcomes[1]?.odds.toFixed(2)"
+                                                                                            :data-oddmarketid="i?.market1?.marketId"
+                                                                                            :data-outComeId="i?.market1?.outcomes[1]?.outComeId"
+                                                                                            :data-matchid="i?.competition?.matchId"
+                                                                                            :data-marketname="i?.market1?.marketName">
+                                                                                            <span class="ml-3"
+                                                                                                :data-matchid="i?.competition?.matchId">
+                                                                                                {{
+                                                                                                    i?.market1?.outcomes[1]?.odds.toFixed(2)
+                                                                                                }}
+                                                                                            </span>
+                                                                                        </a>
+
+                                                                                        <a v-else
+                                                                                            class="point__box bg__none">
+                                                                                            <i class="fa fa-lock"></i>
+                                                                                        </a>
+
+                                                                                        <a href="javascript:;"
+                                                                                            v-if="i?.market1?.outcomes[2]?.odds"
+                                                                                            class="point__box odd"
+                                                                                            :data-odd="i?.market1?.outcomes[2]?.odds.toFixed(2)"
+                                                                                            :data-oddmarketid="i?.market1?.marketId"
+                                                                                            :data-outComeId="i?.market1?.outcomes[2]?.outComeId"
+                                                                                            :data-matchid="i?.competition?.matchId"
+                                                                                            :data-marketname="i?.market1?.marketName">
+                                                                                            <span class="ml-3"
+                                                                                                :data-matchid="i?.competition?.matchId">
+                                                                                                {{
+                                                                                                    i?.market1?.outcomes[2]?.odds.toFixed(2)
+                                                                                                }}
+                                                                                            </span>
+                                                                                        </a>
+
+                                                                                        <a v-else
+                                                                                            class="point__box bg__none">
+                                                                                            <i class="fa fa-lock"></i>
+                                                                                        </a>
+
+                                                                                        <div class="d-block d-lg-none">
+                                                                                            <a href=""
+                                                                                                style="margin-left: 10px">
+                                                                                                <i class="icon-pmart"></i>
+                                                                                            </a>
+                                                                                            <a href=""
+                                                                                                style="margin: 0px 10px 0px 10px">
+                                                                                                <i class="icon-twer"></i>
+                                                                                                <small>{{ i?.markets?.length
+                                                                                                }}</small>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="cart__point cart__point__two d-none d-lg-flex">
+                                                                                        2,6
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="mart__point__two d-none d-lg-flex">
+                                                                                        <div class="mart__point__left">
+                                                                                            <a href="javascript:;"
+                                                                                                v-if="i?.market406?.outcomes[0]?.odds"
+                                                                                                class="point__box odd"
+                                                                                                :data-odd="i?.market406?.outcomes[0]?.odds.toFixed(2)"
+                                                                                                :data-oddmarketid="i?.market406?.marketId"
+                                                                                                :data-outComeId="i?.market406?.outcomes[0]?.outComeId"
+                                                                                                :data-matchid="i?.competition?.matchId"
+                                                                                                :data-marketname="i?.market406?.marketName">
+                                                                                                <span class="ml-3"
+                                                                                                    :data-matchid="i?.competition?.matchId">
+                                                                                                    {{
+                                                                                                        i?.market406?.outcomes[0]?.odds.toFixed(2)
+                                                                                                    }}
+                                                                                                </span>
+                                                                                            </a>
+
+                                                                                            <a v-else
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-lock"></i>
+                                                                                            </a>
+
+                                                                                            <a href="javascript:;"
+                                                                                                v-if="i?.market406?.outcomes[1]?.odds"
+                                                                                                class="point__box odd"
+                                                                                                :data-odd="i?.market406?.outcomes[1]?.odds.toFixed(2)"
+                                                                                                :data-oddmarketid="i?.market406?.marketId"
+                                                                                                :data-outComeId="i?.market406?.outcomes[1]?.outComeId"
+                                                                                                :data-matchid="i?.competition?.matchId"
+                                                                                                :data-marketname="i?.market406?.marketName">
+                                                                                                <span class="ml-3"
+                                                                                                    :data-matchid="i?.competition?.matchId">
+                                                                                                    {{
+                                                                                                        i?.market406?.outcomes[1]?.odds.toFixed(2)
+                                                                                                    }}
+                                                                                                </span>
+                                                                                            </a>
+
+                                                                                            <a v-else
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-lock"></i>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                        <div class="mart__point__right">
+                                                                                            <a href="#0"
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-lock"></i>
+                                                                                            </a>
+                                                                                            <a href="#0"
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-star"></i>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="table__footer">
+                                                                                    <a href="#0" class="lobby">
+                                                                                        Tüm Maçlar
+                                                                                    </a>
+                                                                                    <a href="#0" class="footerpoing">
+                                                                                        <span>{{ matches.length }}</span>
+                                                                                        <span><i
+                                                                                                class="fas fa-angle-right"></i></span>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--Buz Hokeyi-->
+
+                                                                    <!-- Tenis -->
+                                                                        <div class="tab-pane fade text-white show" id="height5"
+                                                                        role="tabpanel" aria-labelledby="nav-home-tabpre"
+                                                                        tabindex="0">
+                                                                        <div class="main__table">
+                                                                            <div class="section__head b__bottom">
+                                                                                <div class="left__head">
+                                                                                    <span class="icons">
+                                                                                        <i class="icon-football"></i>
+                                                                                    </span>
+                                                                                    <span>
+                                                                                        Basketbol
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="right__catagoris">
+                                                                                    <div
+                                                                                        class="right__cate__items d-none d-lg-flex">
+                                                                                        <select name="cate1"
+                                                                                            id="categoris74">
+                                                                                            <option value="1">
+                                                                                                3 İhtimalli
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                Result 1X3
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                Result 1X4
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                Result 1X5
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="right__cate__items d-none d-lg-flex">
+                                                                                        <select name="cate1"
+                                                                                            id="categoris2">
+                                                                                            <option value="1">
+                                                                                                Alt Üst
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ....
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ....
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ....
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="right__cate__items d-none d-lg-flex">
+                                                                                        <select name="cate1"
+                                                                                            id="categoris3">
+                                                                                            <option value="1">
+                                                                                                Handikap
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ...
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ....
+                                                                                            </option>
+                                                                                            <option value="1">
+                                                                                                ...
+                                                                                            </option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="table__wrap">
+                                                                                <div
+                                                                                    class="table__items table__pointnone__items">
+                                                                                    <div class="t__items">
+                                                                                        <div class="t__items__left">
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="cart__point">
+
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="mart__point__items d-none d-lg-flex">
+                                                                                        <a href="#0"
+                                                                                            class="twing opo twing__right">
+                                                                                            <i class="icon-twer"></i>
+                                                                                        </a>
+                                                                                        <a href="#0" class="mart opo">
+                                                                                            <i class="icon-pmart"></i>
+                                                                                        </a>
+                                                                                        <a href="javascript:;"
+                                                                                            class="point__box bg__none">
+                                                                                            1
+                                                                                        </a>
+                                                                                        <a href="javascript:;"
+                                                                                            class="point__box bg__none">
+                                                                                            X
+                                                                                        </a>
+                                                                                        <a href="javascript:;"
+                                                                                            class="point__box bg__none">
+                                                                                            2
+                                                                                        </a>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="cart__point cart__point__two d-none d-lg-flex">
+                                                                                        Goals
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="mart__point__two clearfix d-none d-lg-flex">
+                                                                                        <div class="mart__point__left">
+                                                                                            <a href="#box"
+                                                                                                class="point__box bg__none">
+                                                                                                1
+                                                                                            </a>
+                                                                                            <a href="#box"
+                                                                                                class="point__box bg__none">
+                                                                                                2
+                                                                                            </a>
+                                                                                        </div>
+                                                                                        <div class="mart__point__right">
+                                                                                            <a href="#0"
+                                                                                                class="point__box bg__none">
+                                                                                                Yes
+                                                                                            </a>
+                                                                                            <a href="#0"
+                                                                                                class="point__box bg__none">
+                                                                                                No
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="table__items b__bottom py-2"
+                                                                                    v-for="i in categoryMatches">
+                                                                                    <div class="t__items mb-2"
+                                                                                        style=" min-width: 350px;">
+                                                                                        <div class="t__items__left w-100">
+                                                                                            <div class="row">
+                                                                                                <div class="col-2">
+                                                                                                    <div>
+                                                                                                        <small>
+                                                                                                            {{
+                                                                                                                i?.date?.date
+                                                                                                            }}
+                                                                                                        </small>
+                                                                                                    </div>
+                                                                                                    <div>
+                                                                                                        <small>
+                                                                                                            {{ i?.date?.hour
+                                                                                                            }}
+                                                                                                        </small>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="col-8 col-lg-6 p-0 text-truncate">
+                                                                                                    <span>
+                                                                                                        <img v-bind:src="i.jerseys?.[0]" class="d-inline" style="width: 16px">
+                                                                                                        {{
+                                                                                                            i?.competition?.competitors[0]?.name
+                                                                                                        }}
+
+                                                                                                        <div class="py-1">
+                                                                                                        </div>
+
+                                                                                                        <img v-bind:src="i.jerseys?.[1]" class="d-inline" style="width: 16px">
+                                                                                                        {{
+                                                                                                            i?.competition?.competitors[1]?.name
+                                                                                                        }}
+                                                                                                    </span>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="col-2 d-flex flex-column">
+                                                                                                    <h6 class="mt-1">
+                                                                                                        0
+                                                                                                    </h6>
+                                                                                                    <h6 class="mt-2">
+                                                                                                        0
+                                                                                                    </h6>
+                                                                                                </div>
+                                                                                                <div
+                                                                                                    class="col-2 text-center d-none d-lg-flex align-items-center justify-content-center p-0">
+                                                                                                    <a href=""
+                                                                                                        style="margin-left: 10px">
+                                                                                                        <i
+                                                                                                            class="icon-pmart"></i>
+                                                                                                    </a>
+                                                                                                    <a href=""
+                                                                                                        style="margin: 0px 10px 0px 10px">
+                                                                                                        <i
+                                                                                                            class="icon-twer"></i>
+                                                                                                        <small>{{
+                                                                                                            i?.markets?.length
+                                                                                                        }}</small>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="cart__point d-none flex-column">
+                                                                                        <small>
+                                                                                            0
+                                                                                        </small>
+                                                                                        <small>
+                                                                                            0
+                                                                                        </small>
+                                                                                    </div>
+                                                                                    <div class="mart__point__items">
+                                                                                        <a href="javascript:;"
+                                                                                            v-if="i?.market1?.outcomes[0]?.odds"
+                                                                                            class="point__box odd"
+                                                                                            :data-odd="i?.market1?.outcomes[0]?.odds.toFixed(2)"
+                                                                                            :data-oddmarketid="i?.market1?.marketId"
+                                                                                            :data-outComeId="i?.market1?.outcomes[0]?.outComeId"
+                                                                                            :data-matchid="i?.competition?.matchId"
+                                                                                            :data-marketname="i?.market1?.marketName">
+                                                                                            <span class="ml-3"
+                                                                                                :data-matchid="i?.competition?.matchId">
+                                                                                                {{
+                                                                                                    i?.market1?.outcomes[0]?.odds.toFixed(2)
+                                                                                                }}
+                                                                                            </span>
+                                                                                        </a>
+
+                                                                                        <a v-else
+                                                                                            class="point__box bg__none">
+                                                                                            <i class="fa fa-lock"></i>
+                                                                                        </a>
+
+                                                                                        <a href="javascript:;"
+                                                                                            v-if="i?.market1?.outcomes[1]?.odds"
+                                                                                            class="point__box odd"
+                                                                                            :data-odd="i?.market1?.outcomes[1]?.odds.toFixed(2)"
+                                                                                            :data-oddmarketid="i?.market1?.marketId"
+                                                                                            :data-outComeId="i?.market1?.outcomes[1]?.outComeId"
+                                                                                            :data-matchid="i?.competition?.matchId"
+                                                                                            :data-marketname="i?.market1?.marketName">
+                                                                                            <span class="ml-3"
+                                                                                                :data-matchid="i?.competition?.matchId">
+                                                                                                {{
+                                                                                                    i?.market1?.outcomes[1]?.odds.toFixed(2)
+                                                                                                }}
+                                                                                            </span>
+                                                                                        </a>
+
+                                                                                        <a v-else
+                                                                                            class="point__box bg__none">
+                                                                                            <i class="fa fa-lock"></i>
+                                                                                        </a>
+
+                                                                                        <a href="javascript:;"
+                                                                                            v-if="i?.market1?.outcomes[2]?.odds"
+                                                                                            class="point__box odd"
+                                                                                            :data-odd="i?.market1?.outcomes[2]?.odds.toFixed(2)"
+                                                                                            :data-oddmarketid="i?.market1?.marketId"
+                                                                                            :data-outComeId="i?.market1?.outcomes[2]?.outComeId"
+                                                                                            :data-matchid="i?.competition?.matchId"
+                                                                                            :data-marketname="i?.market1?.marketName">
+                                                                                            <span class="ml-3"
+                                                                                                :data-matchid="i?.competition?.matchId">
+                                                                                                {{
+                                                                                                    i?.market1?.outcomes[2]?.odds.toFixed(2)
+                                                                                                }}
+                                                                                            </span>
+                                                                                        </a>
+
+                                                                                        <a v-else
+                                                                                            class="point__box bg__none">
+                                                                                            <i class="fa fa-lock"></i>
+                                                                                        </a>
+
+                                                                                        <div class="d-block d-lg-none">
+                                                                                            <a href=""
+                                                                                                style="margin-left: 10px">
+                                                                                                <i class="icon-pmart"></i>
+                                                                                            </a>
+                                                                                            <a href=""
+                                                                                                style="margin: 0px 10px 0px 10px">
+                                                                                                <i class="icon-twer"></i>
+                                                                                                <small>{{ i?.markets?.length
+                                                                                                }}</small>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="cart__point cart__point__two d-none d-lg-flex">
+                                                                                        2,6
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="mart__point__two d-none d-lg-flex">
+                                                                                        <div class="mart__point__left">
+                                                                                            <a href="javascript:;"
+                                                                                                v-if="i?.market406?.outcomes[0]?.odds"
+                                                                                                class="point__box odd"
+                                                                                                :data-odd="i?.market406?.outcomes[0]?.odds.toFixed(2)"
+                                                                                                :data-oddmarketid="i?.market406?.marketId"
+                                                                                                :data-outComeId="i?.market406?.outcomes[0]?.outComeId"
+                                                                                                :data-matchid="i?.competition?.matchId"
+                                                                                                :data-marketname="i?.market406?.marketName">
+                                                                                                <span class="ml-3"
+                                                                                                    :data-matchid="i?.competition?.matchId">
+                                                                                                    {{
+                                                                                                        i?.market406?.outcomes[0]?.odds.toFixed(2)
+                                                                                                    }}
+                                                                                                </span>
+                                                                                            </a>
+
+                                                                                            <a v-else
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-lock"></i>
+                                                                                            </a>
+
+                                                                                            <a href="javascript:;"
+                                                                                                v-if="i?.market406?.outcomes[1]?.odds"
+                                                                                                class="point__box odd"
+                                                                                                :data-odd="i?.market406?.outcomes[1]?.odds.toFixed(2)"
+                                                                                                :data-oddmarketid="i?.market406?.marketId"
+                                                                                                :data-outComeId="i?.market406?.outcomes[1]?.outComeId"
+                                                                                                :data-matchid="i?.competition?.matchId"
+                                                                                                :data-marketname="i?.market406?.marketName">
+                                                                                                <span class="ml-3"
+                                                                                                    :data-matchid="i?.competition?.matchId">
+                                                                                                    {{
+                                                                                                        i?.market406?.outcomes[1]?.odds.toFixed(2)
+                                                                                                    }}
+                                                                                                </span>
+                                                                                            </a>
+
+                                                                                            <a v-else
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-lock"></i>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                        <div class="mart__point__right">
+                                                                                            <a href="#0"
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-lock"></i>
+                                                                                            </a>
+                                                                                            <a href="#0"
+                                                                                                class="point__box bg__none">
+                                                                                                <i class="fa fa-star"></i>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="table__footer">
+                                                                                    <a href="#0" class="lobby">
+                                                                                        Tüm Maçlar
+                                                                                    </a>
+                                                                                    <a href="#0" class="footerpoing">
+                                                                                        <span>{{ matches.length }}</span>
+                                                                                        <span><i
+                                                                                                class="fas fa-angle-right"></i></span>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--Tenis-->
 
                                                                 </div>
                                                             </div>
@@ -633,67 +2194,67 @@ import LeftBar from '../components/LeftBar.vue';
                                                                                         </a>
                                                                                     </li>
                                                                                     <li>
-                                                                                        <a href="#0">
-                                                                                            <img src="/img/footer/rightarrow.png"
-                                                                                                alt="angle"> Roulette
-                                                                                        </a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="#0">
-                                                                                            <img src="/img/footer/rightarrow.png"
-                                                                                                alt="angle"> Blackjack
-                                                                                        </a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="#0">
-                                                                                            <img src="/img/footer/rightarrow.png"
-                                                                                                alt="angle"> Games Shows
-                                                                                        </a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="#0">
-                                                                                            <img src="/img/footer/rightarrow.png"
-                                                                                                alt="angle"> Baccarat & Dice
-                                                                                        </a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="#0">
-                                                                                            <img src="/img/footer/rightarrow.png"
-                                                                                                alt="angle"> Poker
-                                                                                        </a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="livecasino.html">
-                                                                                            <img src="/img/footer/rightarrow.png"
-                                                                                                alt="angle"> All Live Casino
-                                                                                        </a>
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
+                                                                                    <a href="#0">
+                                                                                        <img src="/img/footer/rightarrow.png"
+                                                                                            alt="angle"> Roulette
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="#0">
+                                                                                        <img src="/img/footer/rightarrow.png"
+                                                                                            alt="angle"> Blackjack
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="#0">
+                                                                                        <img src="/img/footer/rightarrow.png"
+                                                                                            alt="angle"> Games Shows
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="#0">
+                                                                                        <img src="/img/footer/rightarrow.png"
+                                                                                            alt="angle"> Baccarat & Dice
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="#0">
+                                                                                        <img src="/img/footer/rightarrow.png"
+                                                                                            alt="angle"> Poker
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="livecasino.html">
+                                                                                        <img src="/img/footer/rightarrow.png"
+                                                                                            alt="angle"> All Live Casino
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-4 wow fadeInUp"
-                                                                        data-wow-delay="0.2s">
-                                                                        <div class="widget__items">
-                                                                            <div class="footer-head">
-                                                                                <h3 class="title">
-                                                                                    Promotions
-                                                                                </h3>
-                                                                            </div>
-                                                                            <div class="content-area">
-                                                                                <ul class="quick-link">
-                                                                                    <li>
-                                                                                        <a href="promotions.html">
-                                                                                            <img src="/img/footer/rightarrow.png"
-                                                                                                alt="angle"> Casino
-                                                                                            Promotions
-                                                                                        </a>
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        <a href="sportsbetting.html">
-                                                                                            <img src="/img/footer/rightarrow.png"
-                                                                                                alt="angle"> Sport
-                                                                                            Promotions
+                                                                </div>
+                                                                <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-4 wow fadeInUp"
+                                                                    data-wow-delay="0.2s">
+                                                                    <div class="widget__items">
+                                                                        <div class="footer-head">
+                                                                            <h3 class="title">
+                                                                                Promotions
+                                                                            </h3>
+                                                                        </div>
+                                                                        <div class="content-area">
+                                                                            <ul class="quick-link">
+                                                                                <li>
+                                                                                    <a href="promotions.html">
+                                                                                        <img src="/img/footer/rightarrow.png"
+                                                                                            alt="angle"> Casino
+                                                                                        Promotions
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="sportsbetting.html">
+                                                                                        <img src="/img/footer/rightarrow.png"
+                                                                                            alt="angle"> Sport
+                                                                                        Promotions
                                                                                     </a>
                                                                                 </li>
                                                                                 <li>
@@ -766,7 +2327,7 @@ import LeftBar from '../components/LeftBar.vue';
                                                             </div>
                                                         </div>
                                                         <!--Footer Top-->
-                                                        
+
                                                         <!--Footer bottom-->
                                                         <div class="footer__bottom">
                                                             <p>
@@ -806,7 +2367,7 @@ import LeftBar from '../components/LeftBar.vue';
                                         </div>
                                     </div>
                                 </div>
-                                </div>
+                            </div>
                             <!--Global Main Body-->
                         </div>
                     </div>
@@ -815,22 +2376,26 @@ import LeftBar from '../components/LeftBar.vue';
                 <Betslip :userInfo="userInfo" />
             </div>
         </div>
-   -
+
     </section>
--</section></template>
+    <Loader :text="loaderText" v-if="loader" />
+</section></template>
 
 <script>
 
-import { VAPP, _V, FUNC, SESSION } from '../helpers/V_APP.js'
+import { VAPP, _V, FUNC, SESSION, } from '../helpers/V_APP.js'
 import $ from 'jquery';
 
 
 export default {
     data() {
         return {
-            // bet: null
+            loader: false,
+            loaderText: 'Yükleniyor',
             activeCoupon: null,
-            topKombis: [1, 2, 3, 4, 5, 7, 8, 9, 10],
+            topKombisList: [1, 2, 3, 4, 5, 7, 8, 9, 10],
+            categoryMatches: {},
+            categoryId: null
         }
     },
     async created() {
@@ -839,29 +2404,41 @@ export default {
             this.$router.push('/sign-in');
     },
     props: ['matches', 'sports', 'userInfo'],
+
     methods: {
-        searchFunc(e) {
-            // ARAMA BÖLÜMÜ DOLU İSE
-            if (e) {
-                this.matches = this.matches.filter(o => o?.competition?.name?.toLowerCase()?.includes(e?.toLowerCase()));
+        async getMatches(dataId) {
+            // LOADER AÇ
+            this.loader = true;
 
-                console.log( this.matches );
-            } else { // ARAMA BÖLÜMÜ BOŞ İSE
-                this.getGames();
-            }
-            // else 
-        },
+            await FUNC.postRequest(_V.rest.new_base + "/prematch?sportId=" + dataId, {}, (book, status) => {
+                // this.categoryMatches = book;
+                this.categoryMatches = FUNC.homeMatches(book, this.sports);
 
-        
+                // LOADER KAPAT
+                this.loader = false;
+
+                // // HİÇ MAÇ YOK İSE
+                if (this?.categoryMatches.length < 1)
+                    alert('No match found.');
+
+                console.log(_V.rest.new_base + "/prematch?sportId=" + dataId);
+
+            });
+        }
     },
     computed: {
         sportsFilter() {
-        // OBJEYE DÖNŞTÜR & ANA KATEGORİLERİN AKTİF OLANLARINI FİLTRELE
-        return Object.values(this.sports).filter(p => p._is.main && p._is.active);
 
+            // OBJEYE DÖNŞTÜR & ANA KATEGORİLERİN AKTİF OLANLARINI FİLTRELE
+            return Object.values(this.sports).filter(p => p._is.main && p._is.active);
+        },
+        topKombis (){
+        //     // OBJEYE DÖNŞTÜR & TOP KOMBİLERİ FİLTRELE
+            return Object.values(this.matches).filter(p => p.info._is.top);
+        }
+        
     },
-  },
 
-    
+
 }
 </script>  
