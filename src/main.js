@@ -4,7 +4,17 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
+import { initYandexMetrika } from 'yandex-metrika-vue3';
+
 const app = createApp(App)
+
+app.use(initYandexMetrika, {
+    id: 96605371,
+    router: router,
+    env: process.env.NODE_ENV
+    // other options
+})
+
 
 app.use(router)
 
